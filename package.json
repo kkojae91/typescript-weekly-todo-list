@@ -1,0 +1,23 @@
+{
+  "name": "typescript-weekly-todo-list",
+  "version": "1.0.0",
+  "description": "## 프로젝트 기획",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kkojae91/typescript-weekly-todo-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kkojae91/typescript-weekly-todo-list/issues"
+  },
+  "homepage": "https://github.com/kkojae91/typescript-weekly-todo-list#readme",
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}
