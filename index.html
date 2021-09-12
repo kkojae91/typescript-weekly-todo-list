@@ -24,6 +24,9 @@
 
     <!-- css import -->
     <link rel="stylesheet" href="./src/css/common.css" />
+
+    <!-- ts import -->
+    <script src="./src/ts/main.ts" defer></script>
   </head>
   <body>
     <!-- header section -->
@@ -47,11 +50,11 @@
     <!-- weekly section -->
     <section class="weekly-section">
       <div class="inner">
-        <div class="weekly-container">
+        <div class="weekly-container mon-container">
           <div class="weekly-container-header">
             <div class="weekly-container-header-title">
               <h2>Monday</h2>
-              <p>0</p>
+              <p class="weekly-todo-count">0</p>
             </div>
             <div class="material-icons">add</div>
           </div>
@@ -77,39 +80,31 @@
             <div class="weekly-item"></div>
           </div>
         </div>
-        <div class="weekly-container">
+        <div class="weekly-container tue-container">
           <div class="weekly-container-header">
             <div class="weekly-container-header-title">
               <h2>Tuesday</h2>
-              <p>0</p>
+              <p class="weekly-todo-count">0</p>
             </div>
             <div class="material-icons">add</div>
           </div>
-          <div class="weekly-items">
-            <div class="weekly-item"></div>
-            <div class="weekly-item"></div>
-            <div class="weekly-item"></div>
-          </div>
+          <div class="weekly-items"></div>
         </div>
-        <div class="weekly-container">
+        <div class="weekly-container wed-container">
           <div class="weekly-container-header">
             <div class="weekly-container-header-title">
               <h2>Wednesday</h2>
-              <p>0</p>
+              <p class="weekly-todo-count">0</p>
             </div>
             <div class="material-icons">add</div>
           </div>
-          <div class="weekly-items">
-            <div class="weekly-item"></div>
-            <div class="weekly-item"></div>
-            <div class="weekly-item"></div>
-          </div>
+          <div class="weekly-items"></div>
         </div>
-        <div class="weekly-container">
+        <div class="weekly-container thu-container">
           <div class="weekly-container-header">
             <div class="weekly-container-header-title">
               <h2>Thursday</h2>
-              <p>0</p>
+              <p class="weekly-todo-count">0</p>
             </div>
             <div class="material-icons">add</div>
           </div>
@@ -119,17 +114,15 @@
             <div class="weekly-item"></div>
           </div>
         </div>
-        <div class="weekly-container">
+        <div class="weekly-container fri-container">
           <div class="weekly-container-header">
             <div class="weekly-container-header-title">
               <h2>Friday</h2>
-              <p>0</p>
+              <p class="weekly-todo-count">0</p>
             </div>
             <div class="material-icons">add</div>
           </div>
           <div class="weekly-items">
-            <div class="weekly-item"></div>
-            <div class="weekly-item"></div>
             <div class="weekly-item"></div>
           </div>
         </div>
