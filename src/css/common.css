@@ -28,6 +28,11 @@ body {
   color: #121212;
 }
 
+input {
+  outline: none;
+  border: none;
+}
+
 /* header section */
 header {
   margin: 20px 0;
@@ -118,6 +123,25 @@ header .inner p {
   align-items: center;
 }
 
+.plus-day-mon,
+.plus-day-tue,
+.plus-day-wed,
+.plus-day-thu,
+.plus-day-fri {
+  margin-right: 5px;
+  background-color: #d3d3d3;
+  padding: 3px 4px;
+  border-radius: 5px;
+}
+.plus-day-mon:hover,
+.plus-day-tue:hover,
+.plus-day-wed:hover,
+.plus-day-thu:hover,
+.plus-day-fri:hover {
+  cursor: pointer;
+}
+
+.plus-day-mon:hover,
 .weekly-section
   .inner
   .weekly-container:nth-child(1)
@@ -130,6 +154,7 @@ header .inner p {
   border-radius: 5px;
 }
 
+.plus-day-tue:hover,
 .weekly-section
   .inner
   .weekly-container:nth-child(2)
@@ -142,6 +167,7 @@ header .inner p {
   border-radius: 5px;
 }
 
+.plus-day-wed:hover,
 .weekly-section
   .inner
   .weekly-container:nth-child(3)
@@ -154,6 +180,7 @@ header .inner p {
   border-radius: 5px;
 }
 
+.plus-day-thu:hover,
 .weekly-section
   .inner
   .weekly-container:nth-child(4)
@@ -166,6 +193,7 @@ header .inner p {
   border-radius: 5px;
 }
 
+.plus-day-fri:hover,
 .weekly-section
   .inner
   .weekly-container:nth-child(5)
@@ -263,5 +291,110 @@ header .inner p {
   .weekly-item
   .weekly-icons
   .weekly-icon:last-child {
+  margin-right: 0;
+}
+
+/* plus section */
+.plus-section.active {
+  display: block;
+}
+
+.plus-section {
+  display: none;
+}
+
+.plus-section .plus-inner {
+  max-width: 900px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  padding: 30px 40px;
+  margin: 0 auto;
+  -webkit-box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.08);
+  box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.08);
+}
+
+.plus-section .plus-inner .plus-title-input {
+  display: block;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 15px;
+  font-size: 30px;
+}
+
+.plus-section .plus-inner .plus-title-input::placeholder {
+  font-size: 30px;
+  color: #bbb;
+}
+
+.plus-section .plus-inner .plus-time {
+  margin-bottom: 12px;
+}
+.plus-section .plus-inner .plus-time label {
+  color: #757575;
+  font-weight: 700;
+  margin-right: 100px;
+}
+
+.plus-section .plus-inner .plus-time #time-input {
+  height: 30px;
+}
+
+.plus-section .plus-inner .plus-time #time-input::placeholder {
+  color: #bbb;
+  font-size: 16px;
+}
+
+.plus-section .plus-inner .plus-day {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.plus-section .plus-inner .plus-day .plus-day-title {
+  color: #757575;
+  font-weight: 700;
+  margin-right: 112px;
+}
+
+.plus-section .plus-inner .plus-day .plus-day-list {
+  display: flex;
+}
+
+.plus-section .plus-inner .plus-important {
+  display: flex;
+}
+
+.plus-section .plus-inner .plus-important .plus-important-title {
+  color: #757575;
+  font-weight: 700;
+  margin-right: 62px;
+}
+
+.plus-section .plus-inner .plus-important .plus-important-icon {
+  display: flex;
+  margin-right: 4px;
+  /* border: 1px solid #d3d3d3; */
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+.plus-section .plus-inner .plus-important .plus-important-icon .item-star {
+  margin-right: -3px;
+  color: #d3d3d3;
+}
+
+.plus-section
+  .plus-inner
+  .plus-important
+  .plus-important-icon:hover
+  .item-star {
+  cursor: pointer;
+  color: #ff3b3b;
+}
+
+.plus-section
+  .plus-inner
+  .plus-important
+  .plus-important-icon
+  .item-star:last-child {
   margin-right: 0;
 }

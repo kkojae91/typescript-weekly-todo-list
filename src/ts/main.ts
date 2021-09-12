@@ -1,3 +1,4 @@
+// todo-count
 function setTodoCount(day: string): void {
   const itemLength: number = document.querySelectorAll(
     `.${day}-container .weekly-items .weekly-item`,
@@ -12,7 +13,7 @@ function setTodoCount(day: string): void {
   }
 }
 
-function main() {
+function main(): void {
   const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
   dayList.forEach(day => setTodoCount(day));
 }
