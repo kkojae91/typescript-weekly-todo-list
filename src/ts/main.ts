@@ -1,4 +1,3 @@
-// todo-count
 function setTodoCount(day: string): void {
   const itemLength: number = document.querySelectorAll(`.${day}-container .weekly-items .weekly-item`).length;
 
@@ -11,7 +10,7 @@ function setTodoCount(day: string): void {
   }
 }
 
-function initializeClassListActive(Els: []) {
+function initializeClassListActive(Els: []): void {
   Els.forEach(El => {
     if (El.classList.contains('active')) {
       El.classList.remove('active');
@@ -52,27 +51,28 @@ function onClickCancelBtn(plusEl: Element): void {
   cancelBtnEl?.addEventListener('click', () => {
     plusEl.classList.remove('active');
     initializeClassListActive(plusDayItems);
+    initializeClassListActive;
   });
 }
 
 function hasClassListActive(Els: Element[]): [boolean, Element] {
   let bool = false;
-  let trueElement: Element;
+  let trueEls: Element[] = [];
   Els.forEach(El => {
     if (El.classList.contains('active')) {
       bool = true;
-      trueElement = El;
+      trueEls.push(El);
     }
   });
-  return [bool, trueElement];
+  return [bool, trueEls];
 }
 
-function checkEls(defaultEl: Element, anotherEls: Element[]) {
-  const [checkBoolean, checkEl]: [boolean, Element] = hasClassListActive(anotherEls);
+function checkEls(defaultEl: Element, anotherEls: Element[]): void {
+  const [checkBoolean, checkEls]: [boolean, Element[]] = hasClassListActive(anotherEls);
   if (!checkBoolean) {
     defaultEl.classList.add('active');
   } else {
-    checkEl.classList.remove('active');
+    checkEls[0].classList.remove('active');
     defaultEl.classList.add('active');
   }
 }
@@ -96,6 +96,45 @@ function onClickDaysEls(plusEl: Element): void {
   });
 }
 
+function checkOnClick(Els: Element[], target: Element) {
+  let bool = false;
+  Els.forEach(El => {
+    if (target === El) {
+      bool = true;
+    }
+  });
+  return bool;
+}
+
+function addClassListActive(targetEls: Element[], anotherEls: Element[]): void {
+  const [checkBoolean, checkEls]: [boolean, Element[]] = hasClassListActive(anotherEls);
+  targetEls.forEach(targetEl => {
+    if (!checkBoolean) {
+      targetEl.classList.add('active');
+    } else {
+      checkEls.forEach(checkEl => {
+        checkEl.classList.remove('active');
+      });
+      targetEl.classList.add('active');
+    }
+  });
+}
+
+function onClickImportantEls(plusEl: Element): void {
+  const importantEls1 = document.querySelectorAll('.plus-important-1');
+  const importantEls2 = document.querySelectorAll('.plus-important-2');
+  const importantEls3 = document.querySelectorAll('.plus-important-3');
+  plusEl.addEventListener('click', event => {
+    if (checkOnClick(importantEls1, event.target)) {
+      addClassListActive(importantEls1, [...importantEls2, ...importantEls3]);
+    } else if (checkOnClick(importantEls2, event.target)) {
+      addClassListActive(importantEls2, [...importantEls1, ...importantEls3]);
+    } else if (checkOnClick(importantEls3, event.target)) {
+      addClassListActive(importantEls3, [...importantEls1, ...importantEls2]);
+    }
+  });
+}
+
 function main(): void {
   const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
   dayList.forEach(day => setTodoCount(day));
@@ -110,6 +149,7 @@ function main(): void {
   if (plusEl) {
     onClickCancelBtn(plusEl);
     onClickDaysEls(plusEl);
+    onClickImportantEls(plusEl);
   }
 }
 

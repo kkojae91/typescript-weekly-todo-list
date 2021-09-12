@@ -338,27 +338,32 @@ header .inner p {
   flex-wrap: wrap;
 }
 
-.plus-section .plus-inner .plus-important .plus-important-icon {
+.plus-section .plus-inner .plus-important .plus-important-icons .plus-important-icon {
   display: flex;
   margin-right: 4px;
   border-radius: 4px;
   padding: 0 4px;
 }
 
-.plus-section .plus-inner .plus-important .plus-important-icon .item-star {
+.plus-section .plus-inner .plus-important .plus-important-icons .plus-important-icon .item-star {
   margin-right: -3px;
   color: #d3d3d3;
-  transition: background-color 300ms;
+  transition: color 300ms;
 }
 
-.plus-section .plus-inner .plus-important .plus-important-icon:hover .item-star {
+.plus-section .plus-inner .plus-important .plus-important-icons .plus-important-icon:hover .item-star {
   cursor: pointer;
   color: #ff3b3b;
-  /* transition: background-color 300ms; */
 }
 
-.plus-section .plus-inner .plus-important .plus-important-icon .item-star:last-child {
+.plus-section .plus-inner .plus-important .plus-important-icons .plus-important-icon .item-star:last-child {
   margin-right: 0;
+}
+
+.plus-section .plus-inner .plus-important .plus-important-icons .plus-important-icon .plus-important-3.active,
+.plus-section .plus-inner .plus-important .plus-important-icons .plus-important-icon .plus-important-2.active,
+.plus-section .plus-inner .plus-important .plus-important-icons .plus-important-icon .plus-important-1.active {
+  color: #ff3b3b;
 }
 
 .plus-section .plus-inner .plus-section-btn-group {
