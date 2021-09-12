@@ -11,34 +11,47 @@ function setTodoCount(day: string): void {
   }
 }
 
+function initializeClassListActive(Els: []) {
+  Els.forEach(El => {
+    if (El.classList.contains('active')) {
+      El.classList.remove('active');
+    }
+  });
+}
+
 function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
   const [monPlusIcon, tuePlusIcon, wedPlusIcon, thuPlusIcon, friPlusIcon]: Element[] =
     document.querySelectorAll('.add-icon');
 
+  const [mondayItemEl, tuesdayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl]: Element[] =
+    document.querySelectorAll('.plus-day-item');
+
   weeklyEl.addEventListener('click', event => {
     if (event.target === monPlusIcon) {
       plusEl.classList.add('active');
-      console.log('mon');
+      mondayItemEl.classList.add('active');
     } else if (event.target === tuePlusIcon) {
       plusEl.classList.add('active');
-      console.log('tue');
+      tuesdayItemEl.classList.add('active');
     } else if (event.target === wedPlusIcon) {
       plusEl.classList.add('active');
-      console.log('wed');
+      wednesdayItemEl.classList.add('active');
     } else if (event.target === thuPlusIcon) {
       plusEl.classList.add('active');
-      console.log('thu');
+      thursdayItemEl.classList.add('active');
     } else if (event.target === friPlusIcon) {
       plusEl.classList.add('active');
-      console.log('fri');
+      fridayItemEl.classList.add('active');
     }
   });
 }
 
 function onClickCancelBtn(plusEl: Element): void {
   const cancelBtnEl: Element | null = document.querySelector('.btn__cancel');
+  const plusDayItems: Element[] = document.querySelectorAll('.plus-day-item');
   cancelBtnEl?.addEventListener('click', () => {
     plusEl.classList.remove('active');
+    initializeClassListActive(plusDayItems);
   });
 }
 

@@ -114,11 +114,7 @@ header .inner p {
   margin-bottom: 12px;
 }
 
-.weekly-section
-  .inner
-  .weekly-container
-  .weekly-container-header
-  .weekly-container-header-title {
+.weekly-section .inner .weekly-container .weekly-container-header .weekly-container-header-title {
   display: flex;
   align-items: center;
 }
@@ -160,12 +156,7 @@ header .inner p {
 }
 
 .plus-day-mon:hover,
-.weekly-section
-  .inner
-  .weekly-container:nth-child(1)
-  .weekly-container-header
-  .weekly-container-header-title
-  h2 {
+.weekly-section .inner .weekly-container:nth-child(1) .weekly-container-header .weekly-container-header-title h2 {
   margin-right: 5px;
   background-color: rgb(223, 245, 172);
   padding: 3px 4px;
@@ -173,12 +164,7 @@ header .inner p {
 }
 
 .plus-day-tue:hover,
-.weekly-section
-  .inner
-  .weekly-container:nth-child(2)
-  .weekly-container-header
-  .weekly-container-header-title
-  h2 {
+.weekly-section .inner .weekly-container:nth-child(2) .weekly-container-header .weekly-container-header-title h2 {
   margin-right: 5px;
   background-color: rgb(205, 240, 254);
   padding: 3px 4px;
@@ -186,12 +172,7 @@ header .inner p {
 }
 
 .plus-day-wed:hover,
-.weekly-section
-  .inner
-  .weekly-container:nth-child(3)
-  .weekly-container-header
-  .weekly-container-header-title
-  h2 {
+.weekly-section .inner .weekly-container:nth-child(3) .weekly-container-header .weekly-container-header-title h2 {
   margin-right: 5px;
   background-color: rgb(255, 201, 191);
   padding: 3px 4px;
@@ -199,12 +180,7 @@ header .inner p {
 }
 
 .plus-day-thu:hover,
-.weekly-section
-  .inner
-  .weekly-container:nth-child(4)
-  .weekly-container-header
-  .weekly-container-header-title
-  h2 {
+.weekly-section .inner .weekly-container:nth-child(4) .weekly-container-header .weekly-container-header-title h2 {
   margin-right: 5px;
   background-color: rgb(255, 249, 183);
   padding: 3px 4px;
@@ -212,24 +188,14 @@ header .inner p {
 }
 
 .plus-day-fri:hover,
-.weekly-section
-  .inner
-  .weekly-container:nth-child(5)
-  .weekly-container-header
-  .weekly-container-header-title
-  h2 {
+.weekly-section .inner .weekly-container:nth-child(5) .weekly-container-header .weekly-container-header-title h2 {
   margin-right: 5px;
   background-color: rgb(241, 199, 255);
   padding: 3px 4px;
   border-radius: 5px;
 }
 
-.weekly-section
-  .inner
-  .weekly-container
-  .weekly-container-header
-  .weekly-container-header-title
-  p {
+.weekly-section .inner .weekly-container .weekly-container-header .weekly-container-header-title p {
   color: #999;
 }
 
@@ -253,25 +219,14 @@ header .inner p {
   margin-bottom: 10px;
 }
 
-.weekly-section
-  .inner
-  .weekly-container
-  .weekly-items
-  .weekly-item
-  .weekly-item-box {
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-item-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.weekly-section
-  .inner
-  .weekly-container
-  .weekly-items
-  .weekly-item
-  .weekly-item-box
-  .weekly-item-time {
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-item-box .weekly-item-time {
   color: #666;
   font-size: 13px;
 }
@@ -282,33 +237,16 @@ header .inner p {
   cursor: default;
 }
 
-.weekly-section
-  .inner
-  .weekly-container
-  .weekly-items
-  .weekly-item
-  .weekly-icons {
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons {
   display: flex;
   justify-content: flex-end;
 }
 
-.weekly-section
-  .inner
-  .weekly-container
-  .weekly-items
-  .weekly-item
-  .weekly-icons
-  .weekly-icon {
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons .weekly-icon {
   margin-right: 3px;
 }
 
-.weekly-section
-  .inner
-  .weekly-container
-  .weekly-items
-  .weekly-item
-  .weekly-icons
-  .weekly-icon:last-child {
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons .weekly-icon:last-child {
   margin-right: 0;
 }
 
@@ -413,21 +351,13 @@ header .inner p {
   transition: background-color 300ms;
 }
 
-.plus-section
-  .plus-inner
-  .plus-important
-  .plus-important-icon:hover
-  .item-star {
+.plus-section .plus-inner .plus-important .plus-important-icon:hover .item-star {
   cursor: pointer;
   color: #ff3b3b;
   /* transition: background-color 300ms; */
 }
 
-.plus-section
-  .plus-inner
-  .plus-important
-  .plus-important-icon
-  .item-star:last-child {
+.plus-section .plus-inner .plus-important .plus-important-icon .item-star:last-child {
   margin-right: 0;
 }
 
