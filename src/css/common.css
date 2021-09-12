@@ -135,6 +135,22 @@ header .inner p {
   transition: background-color 300ms;
 }
 
+.plus-day-mon.active {
+  background-color: rgb(223, 245, 172);
+}
+.plus-day-tue.active {
+  background-color: rgb(205, 240, 254);
+}
+.plus-day-wed.active {
+  background-color: rgb(255, 201, 191);
+}
+.plus-day-thu.active {
+  background-color: rgb(255, 249, 183);
+}
+.plus-day-fri.active {
+  background-color: rgb(241, 199, 255);
+}
+
 .plus-day-mon:hover,
 .plus-day-tue:hover,
 .plus-day-wed:hover,
