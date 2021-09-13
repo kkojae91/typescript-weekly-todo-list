@@ -134,7 +134,30 @@ function onClickImportantEls(plusEl: Element): void {
   });
 }
 
-function makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput) {}
+function makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput) {
+  const weeklyItemEl = document.createElement('div');
+  weeklyItemEl.setAttribute('class', 'weekly-item');
+  weeklyItemEl.innerHTML = `
+    <h3>${userTitleInput}</h3>
+    <div class="weekly-item-box">
+      <p class="weekly-item-time">${userTimeInput}</p>
+      <div>
+        ${'<div class="material-icons item-star">star_rate</div>'.repeat(userImportantInput)}
+      </div>
+    </div>
+    <div class="weekly-icons">
+      <div class="material-icons weekly-icon">drive_file_rename_outline</div>
+      <div class="material-icons weekly-icon">check_circle_outline</div>
+      <div class="material-icons weekly-icon">delete_outline</div>
+    </div>
+  `;
+  const weeklyContainerEls: Elemnet[] = document.querySelectorAll('.weekly-container');
+  weeklyContainerEls.forEach(weeklyContainerEl => {
+    if (weeklyContainerEl.dataset.weekly === userDayInput) {
+      weeklyContainerEl.lastChild.previousSibling.appendChild(weeklyItemEl);
+    }
+  });
+}
 
 function onClickCompletionEl(plusEl: Element): void {
   const completionEl: Element | null = document.querySelector('.btn__completion');
