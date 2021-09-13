@@ -11,6 +11,7 @@
 - Storage 활용해 사용자의 기록 저장후 재접속시 기록 유지
 - Toggle을 통해 dark 모드 구현
 - 반응형 구현(mobile, desktop)
+- dataset 활용
 
 ## 프로젝트를 통해 얻을 것
 
@@ -21,3 +22,4 @@
   - 변경사항이 있을 경우 README update, modify..
 - TypeScript로 타입 관리
 - JavaScript로 dark 모드, stroage, drag&drop 구현
+- dataset 활용 방법 숙지
