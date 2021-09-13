@@ -51,7 +51,6 @@ function onClickCancelBtn(plusEl: Element): void {
   cancelBtnEl?.addEventListener('click', () => {
     plusEl.classList.remove('active');
     initializeClassListActive(plusDayItems);
-    initializeClassListActive;
   });
 }
 
@@ -135,6 +134,25 @@ function onClickImportantEls(plusEl: Element): void {
   });
 }
 
+function makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput) {}
+
+function onClickCompletionEl(plusEl: Element): void {
+  const completionEl: Element | null = document.querySelector('.btn__completion');
+  const titleInputEl = <HTMLInputElement>document.querySelector('.plus-title-input');
+  const timeInputEl = <HTMLInputElement>document.querySelector('#time-input');
+  plusEl.addEventListener('click', event => {
+    const dayItemEl: Element | null = document.querySelector('.plus-day-item.active');
+    const importantItemEl: Element | null = document.querySelector('.important-item-star.active');
+    if (event.target === completionEl) {
+      const userTitleInput = titleInputEl.value;
+      const userTimeInput = timeInputEl.value;
+      const userDayInput = dayItemEl?.textContent;
+      const userImportantInput = importantItemEl.dataset.important;
+      makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
+    }
+  });
+}
+
 function main(): void {
   const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
   dayList.forEach(day => setTodoCount(day));
@@ -150,6 +168,7 @@ function main(): void {
     onClickCancelBtn(plusEl);
     onClickDaysEls(plusEl);
     onClickImportantEls(plusEl);
+    onClickCompletionEl(plusEl);
   }
 }
 
