@@ -149,6 +149,7 @@ function onClickCompletionEl(plusEl: Element): void {
       const userDayInput = dayItemEl?.textContent;
       const userImportantInput = importantItemEl.dataset.important;
       makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
+      plusEl.classList.remove('active');
     }
   });
 }
