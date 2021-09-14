@@ -160,6 +160,7 @@ function makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportant
 }
 
 function onClickCompletionEl(plusEl: Element): void {
+  const plusDayEls = document.querySelectorAll('.plus-day-item');
   const completionEl: Element | null = document.querySelector('.btn__completion');
   const titleInputEl = <HTMLInputElement>document.querySelector('.plus-title-input');
   const timeInputEl = <HTMLInputElement>document.querySelector('#time-input');
@@ -173,6 +174,7 @@ function onClickCompletionEl(plusEl: Element): void {
       const userImportantInput = importantItemEl.dataset.important;
       makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
       plusEl.classList.remove('active');
+      initializeClassListActive(plusDayEls);
     }
   });
 }
