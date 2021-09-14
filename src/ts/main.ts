@@ -159,6 +159,24 @@ function makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportant
   });
 }
 
+function targetCheck(target, El, plusEl, plusDayEls, titleInputEl, timeInputEl, dayItemEl, importantItemEl) {
+  if (target === El) {
+    const userTitleInput = titleInputEl.value;
+    const userTimeInput = timeInputEl.value;
+    const userDayInput = dayItemEl?.textContent;
+    const userImportantInput = importantItemEl.dataset.important;
+    if (userTitleInput === '') {
+      alert('Enter the title');
+    } else if (userTimeInput === '') {
+      alert('Enter the time');
+    } else {
+      makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
+      plusEl.classList.remove('active');
+      initializeClassListActive(plusDayEls);
+    }
+  }
+}
+
 function onClickCompletionEl(plusEl: Element): void {
   const plusDayEls = document.querySelectorAll('.plus-day-item');
   const completionEl: Element | null = document.querySelector('.btn__completion');
@@ -167,21 +185,7 @@ function onClickCompletionEl(plusEl: Element): void {
   plusEl.addEventListener('click', event => {
     const dayItemEl: Element | null = document.querySelector('.plus-day-item.active');
     const importantItemEl: Element | null = document.querySelector('.important-item-star.active');
-    if (event.target === completionEl) {
-      const userTitleInput = titleInputEl.value;
-      const userTimeInput = timeInputEl.value;
-      const userDayInput = dayItemEl?.textContent;
-      const userImportantInput = importantItemEl.dataset.important;
-      if (userTitleInput === '') {
-        alert('Enter the title');
-      } else if (userTimeInput === '') {
-        alert('Enter the time');
-      } else {
-        makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
-        plusEl.classList.remove('active');
-        initializeClassListActive(plusDayEls);
-      }
-    }
+    targetCheck(event.target, completionEl, plusEl, plusDayEls, titleInputEl, timeInputEl, dayItemEl, importantItemEl);
   });
 }
 
