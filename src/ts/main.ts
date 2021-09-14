@@ -134,8 +134,8 @@ function onClickImportantEls(plusEl: Element): void {
   });
 }
 
-function makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput) {
-  const weeklyItemEl = document.createElement('div');
+function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInput: string, userImportantInput: string) {
+  const weeklyItemEl: Element = document.createElement('div');
   weeklyItemEl.setAttribute('class', 'weekly-item');
   weeklyItemEl.innerHTML = `
     <h3>${userTitleInput}</h3>
