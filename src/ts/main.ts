@@ -172,8 +172,8 @@ function targetCheck(
   importantItemEl: Element,
 ): void {
   if (target === El) {
-    let userTitleInput: string = titleInputEl.value;
-    let userTimeInput: string = timeInputEl.value;
+    const userTitleInput: string = titleInputEl.value;
+    const userTimeInput: string = timeInputEl.value;
     const userDayInput: string | null = dayItemEl?.textContent;
     const userImportantInput: string = importantItemEl.dataset.important;
     if (userTitleInput === '') {
@@ -184,8 +184,8 @@ function targetCheck(
       makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
       plusEl.classList.remove('active');
       initializeClassListActive(plusDayEls);
-      userTitleInput = '';
-      userTimeInput = '';
+      titleInputEl.value = '';
+      timeInputEl.value = '';
     }
   }
 }
