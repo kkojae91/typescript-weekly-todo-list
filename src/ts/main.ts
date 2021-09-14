@@ -157,14 +157,25 @@ function makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportant
       weeklyContainerEl.lastChild.previousSibling.appendChild(weeklyItemEl);
     }
   });
+  const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+  dayList.forEach(day => setTodoCount(day));
 }
 
-function targetCheck(target, El, plusEl, plusDayEls, titleInputEl, timeInputEl, dayItemEl, importantItemEl) {
+function targetCheck(
+  target: Element,
+  El: Element,
+  plusEl: Element,
+  plusDayEls: Element[],
+  titleInputEl: Element,
+  timeInputEl: Element,
+  dayItemEl: Element,
+  importantItemEl: Element,
+): void {
   if (target === El) {
-    const userTitleInput = titleInputEl.value;
-    const userTimeInput = timeInputEl.value;
-    const userDayInput = dayItemEl?.textContent;
-    const userImportantInput = importantItemEl.dataset.important;
+    let userTitleInput: string = titleInputEl.value;
+    let userTimeInput: string = timeInputEl.value;
+    const userDayInput: string | null = dayItemEl?.textContent;
+    const userImportantInput: string = importantItemEl.dataset.important;
     if (userTitleInput === '') {
       alert('Enter the title');
     } else if (userTimeInput === '') {
@@ -173,6 +184,8 @@ function targetCheck(target, El, plusEl, plusDayEls, titleInputEl, timeInputEl, 
       makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
       plusEl.classList.remove('active');
       initializeClassListActive(plusDayEls);
+      userTitleInput = '';
+      userTimeInput = '';
     }
   }
 }
@@ -190,9 +203,6 @@ function onClickCompletionEl(plusEl: Element): void {
 }
 
 function main(): void {
-  const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-  dayList.forEach(day => setTodoCount(day));
-
   const weeklyEl: Element | null = document.querySelector('.weekly-section');
   const plusEl: Element | null = document.querySelector('.plus-section');
 
