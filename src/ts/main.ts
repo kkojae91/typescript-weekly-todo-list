@@ -172,9 +172,15 @@ function onClickCompletionEl(plusEl: Element): void {
       const userTimeInput = timeInputEl.value;
       const userDayInput = dayItemEl?.textContent;
       const userImportantInput = importantItemEl.dataset.important;
-      makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
-      plusEl.classList.remove('active');
-      initializeClassListActive(plusDayEls);
+      if (userTitleInput === '') {
+        alert('Enter the title');
+      } else if (userTimeInput === '') {
+        alert('Enter the time');
+      } else {
+        makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
+        plusEl.classList.remove('active');
+        initializeClassListActive(plusDayEls);
+      }
     }
   });
 }
