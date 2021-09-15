@@ -138,7 +138,7 @@ function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInpu
   const randomId: number = Math.floor(Math.random() * 1000000000);
   const weeklyItemEl: Element = document.createElement('div');
   weeklyItemEl.setAttribute('class', 'weekly-item');
-  weeklyItemEl.setAttribute('data-item-id', String(randomId));
+  weeklyItemEl.setAttribute('data-itemid', String(randomId));
   weeklyItemEl.innerHTML = `
     <h3>${userTitleInput}</h3>
     <div class="weekly-item-box">
@@ -148,9 +148,9 @@ function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInpu
       </div>
     </div>
     <div class="weekly-icons">
-      <div class="material-icons weekly-icon" data-edit-id=${randomId}>drive_file_rename_outline</div>
-      <div class="material-icons weekly-icon" data-check-id=${randomId}>check_circle_outline</div>
-      <div class="material-icons weekly-icon" data-delete-id=${randomId}>delete_outline</div>
+      <div class="material-icons weekly-icon edit-icon" data-editid=${randomId}>drive_file_rename_outline</div>
+      <div class="material-icons weekly-icon check-icon" data-checkid=${randomId}>check_circle_outline</div>
+      <div class="material-icons weekly-icon delete-icon" data-deleteid=${randomId}>delete_outline</div>
     </div>
   `;
   const weeklyContainerEls: Elemnet[] = document.querySelectorAll('.weekly-container');
@@ -204,12 +204,42 @@ function onClickCompletionEl(plusEl: Element): void {
   });
 }
 
+function compareDeleteIdAndItemId(deleteEl: Element, itemEl: Element) {
+  if (deleteEl.dataset.deleteid === itemEl.dataset.itemid) {
+    itemEl.remove();
+    const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+    dayList.forEach(day => setTodoCount(day));
+  }
+}
+
+function compareTargetAndDeleteEl(target: Event, deleteEl: Element) {
+  if (target === deleteEl) {
+    const itemEls = document.querySelectorAll('.weekly-item');
+    itemEls.forEach(itemEl => {
+      compareDeleteIdAndItemId(deleteEl, itemEl);
+    });
+  }
+}
+
+function onClickDeleteBtn(weeklyEl: Element) {
+  weeklyEl.addEventListener('click', event => {
+    const deleteEls: Element[] = document.querySelectorAll('.delete-icon');
+    deleteEls.forEach(deleteEl => {
+      compareTargetAndDeleteEl(event.target, deleteEl);
+    });
+  });
+}
+
 function main(): void {
   const weeklyEl: Element | null = document.querySelector('.weekly-section');
   const plusEl: Element | null = document.querySelector('.plus-section');
 
   if (weeklyEl && plusEl) {
     onClickPlusBtn(weeklyEl, plusEl);
+  }
+
+  if (weeklyEl) {
+    onClickDeleteBtn(weeklyEl);
   }
 
   if (plusEl) {
