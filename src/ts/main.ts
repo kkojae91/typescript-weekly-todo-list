@@ -135,8 +135,10 @@ function onClickImportantEls(plusEl: Element): void {
 }
 
 function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInput: string, userImportantInput: string) {
+  const randomId: number = Math.floor(Math.random() * 1000000000);
   const weeklyItemEl: Element = document.createElement('div');
   weeklyItemEl.setAttribute('class', 'weekly-item');
+  weeklyItemEl.setAttribute('data-item-id', String(randomId));
   weeklyItemEl.innerHTML = `
     <h3>${userTitleInput}</h3>
     <div class="weekly-item-box">
@@ -146,9 +148,9 @@ function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInpu
       </div>
     </div>
     <div class="weekly-icons">
-      <div class="material-icons weekly-icon">drive_file_rename_outline</div>
-      <div class="material-icons weekly-icon">check_circle_outline</div>
-      <div class="material-icons weekly-icon">delete_outline</div>
+      <div class="material-icons weekly-icon" data-edit-id=${randomId}>drive_file_rename_outline</div>
+      <div class="material-icons weekly-icon" data-check-id=${randomId}>check_circle_outline</div>
+      <div class="material-icons weekly-icon" data-delete-id=${randomId}>delete_outline</div>
     </div>
   `;
   const weeklyContainerEls: Elemnet[] = document.querySelectorAll('.weekly-container');
