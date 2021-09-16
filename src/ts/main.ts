@@ -139,7 +139,7 @@ function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInpu
   const weeklyItemEl: Element = document.createElement('div');
   weeklyItemEl.setAttribute('class', 'weekly-item');
   weeklyItemEl.setAttribute('data-itemid', String(randomId));
-  const importantDiv = `<div class="material-icons item-star weekly-item-imporatant" data-importantid=${randomId}>star_rate</div>`;
+  const importantDiv = `<div class="material-icons item-star weekly-item-important" data-importantid=${randomId}>star_rate</div>`;
   weeklyItemEl.innerHTML = `
     <h3 class="weekly-item-title" data-titleid=${randomId}>${userTitleInput}</h3>
     <div class="weekly-item-box">
@@ -229,41 +229,56 @@ function onClickDeleteBtn(weeklyEl: Element) {
   });
 }
 
+function getEditEls() {
+  const itemEls = document.querySelectorAll('.weekly-item');
+  const titleEls = document.querySelectorAll('.weekly-item-title');
+  const timeEls = document.querySelectorAll('.weekly-item-time');
+  const importantEls = document.querySelectorAll('.weekly-item-important');
+  return [itemEls, titleEls, timeEls, importantEls];
+}
+
 function getDayOfEdit(targetEl: Element): string {
   const targetDay: string =
     targetEl.parentElement?.previousElementSibling?.firstElementChild?.firstElementChild?.textContent;
   return targetDay;
 }
 
-function getTextOfEdit(editEl: Element, targetEl: Element): string {
-  let targetText = '';
-  if (editEl.dataset.editid === targetEl.dataset.itemid && targetEl.className === 'weekly-item') {
-    targetText = getDayOfEdit(targetEl);
-  } else if (editEl.dataset.editid === targetEl.dataset.titleid || editEl.dataset.editid === targetEl.dataset.timeid) {
-    if (targetEl.textContent) {
-      targetText = targetEl.textContent;
-    }
-  }
-  return targetText;
-}
-
 function compareTargetAndEditEl(editEl: Element) {
   let targetDay = '';
   let targetTitle = '';
   let targetTime = '';
-  const itemEls = document.querySelectorAll('.weekly-item');
-  const titleEls = document.querySelectorAll('.weekly-item-title');
-  const timeEls = document.querySelectorAll('.weekly-item-time');
-  const importantEls = document.querySelectorAll('.weekly-item-important');
+  let targetImportantCount = 0;
+  const [itemEls, titleEls, timeEls, importantEls] = getEditEls();
 
-  for (let i = 0; i < itemEls.length; i++) {
-    targetDay = getTextOfEdit(editEl, itemEls[i]);
-    targetTitle = getTextOfEdit(editEl, titleEls[i]);
-    targetTime = getTextOfEdit(editEl, timeEls[i]);
-    // getTextOfEdit(editEl, importantEl);
-  }
+  itemEls.forEach(itemEl => {
+    if (editEl.dataset.editid === itemEl.dataset.itemid) {
+      targetDay = getDayOfEdit(itemEl);
+    }
+  });
 
-  console.log(targetDay, targetTitle, targetTime);
+  titleEls.forEach(titleEl => {
+    if (editEl.dataset.editid === titleEl.dataset.titleid) {
+      if (titleEl.textContent) {
+        targetTitle = titleEl.textContent;
+      }
+    }
+  });
+
+  timeEls.forEach(timeEl => {
+    if (editEl.dataset.editid === timeEl.dataset.timeid) {
+      if (timeEl.textContent) {
+        targetTime = timeEl.textContent;
+      }
+    }
+  });
+
+  importantEls.forEach(importantEl => {
+    if (editEl.dataset.editid === importantEl.dataset.importantid) {
+      targetImportantCount++;
+    }
+  });
+
+  console.log(targetDay, targetTitle, targetTime, targetImportantCount);
 }
 
 function onClickEditBtn(weeklyEl: Element) {
