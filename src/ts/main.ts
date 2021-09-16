@@ -10,7 +10,7 @@ function setTodoCount(day: string): void {
   }
 }
 
-function initializeClassListActive(Els: []): void {
+function initializeClassListActive(Els: Element[]): void {
   Els.forEach(El => {
     if (El.classList.contains('active')) {
       El.classList.remove('active');
@@ -139,12 +139,13 @@ function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInpu
   const weeklyItemEl: Element = document.createElement('div');
   weeklyItemEl.setAttribute('class', 'weekly-item');
   weeklyItemEl.setAttribute('data-itemid', String(randomId));
+  const importantDiv = `<div class="material-icons item-star weekly-item-imporatant" data-importantid=${randomId}>star_rate</div>`;
   weeklyItemEl.innerHTML = `
-    <h3>${userTitleInput}</h3>
+    <h3 class="weekly-item-title" data-titleid=${randomId}>${userTitleInput}</h3>
     <div class="weekly-item-box">
-      <p class="weekly-item-time">${userTimeInput}</p>
+      <p class="weekly-item-time" data-timeid=${randomId}>${userTimeInput}</p>
       <div>
-        ${'<div class="material-icons item-star">star_rate</div>'.repeat(userImportantInput)}
+        ${importantDiv.repeat(userImportantInput)}
       </div>
     </div>
     <div class="weekly-icons">
@@ -164,8 +165,6 @@ function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInpu
 }
 
 function targetCheck(
-  target: Element,
-  El: Element,
   plusEl: Element,
   plusDayEls: Element[],
   titleInputEl: Element,
@@ -173,22 +172,20 @@ function targetCheck(
   dayItemEl: Element,
   importantItemEl: Element,
 ): void {
-  if (target === El) {
-    const userTitleInput: string = titleInputEl.value;
-    const userTimeInput: string = timeInputEl.value;
-    const userDayInput: string | null = dayItemEl?.textContent;
-    const userImportantInput: string = importantItemEl.dataset.important;
-    if (userTitleInput === '') {
-      alert('Enter the title');
-    } else if (userTimeInput === '') {
-      alert('Enter the time');
-    } else {
-      makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
-      plusEl.classList.remove('active');
-      initializeClassListActive(plusDayEls);
-      titleInputEl.value = '';
-      timeInputEl.value = '';
-    }
+  const userTitleInput: string = titleInputEl.value;
+  const userTimeInput: string = timeInputEl.value;
+  const userDayInput: string | null = dayItemEl?.textContent;
+  const userImportantInput: string = importantItemEl.dataset.important;
+  if (userTitleInput === '') {
+    alert('Enter the title');
+  } else if (userTimeInput === '') {
+    alert('Enter the time');
+  } else {
+    makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
+    plusEl.classList.remove('active');
+    initializeClassListActive(plusDayEls);
+    titleInputEl.value = '';
+    timeInputEl.value = '';
   }
 }
 
@@ -200,7 +197,9 @@ function onClickCompletionEl(plusEl: Element): void {
   plusEl.addEventListener('click', event => {
     const dayItemEl: Element | null = document.querySelector('.plus-day-item.active');
     const importantItemEl: Element | null = document.querySelector('.important-item-star.active');
-    targetCheck(event.target, completionEl, plusEl, plusDayEls, titleInputEl, timeInputEl, dayItemEl, importantItemEl);
+    if (event.target === completionEl) {
+      targetCheck(plusEl, plusDayEls, titleInputEl, timeInputEl, dayItemEl, importantItemEl);
+    }
   });
 }
 
@@ -212,20 +211,68 @@ function compareDeleteIdAndItemId(deleteEl: Element, itemEl: Element) {
   }
 }
 
-function compareTargetAndDeleteEl(target: Event, deleteEl: Element) {
-  if (target === deleteEl) {
-    const itemEls = document.querySelectorAll('.weekly-item');
-    itemEls.forEach(itemEl => {
-      compareDeleteIdAndItemId(deleteEl, itemEl);
-    });
-  }
+function compareTargetAndDeleteEl(deleteEl: Element) {
+  const itemEls = document.querySelectorAll('.weekly-item');
+  itemEls.forEach(itemEl => {
+    compareDeleteIdAndItemId(deleteEl, itemEl);
+  });
 }
 
 function onClickDeleteBtn(weeklyEl: Element) {
   weeklyEl.addEventListener('click', event => {
     const deleteEls: Element[] = document.querySelectorAll('.delete-icon');
     deleteEls.forEach(deleteEl => {
-      compareTargetAndDeleteEl(event.target, deleteEl);
+      if (event.target === deleteEl) {
+        compareTargetAndDeleteEl(deleteEl);
+      }
+    });
+  });
+}
+
+function getDayOfEdit(targetEl: Element): string {
+  const targetDay: string =
+    targetEl.parentElement?.previousElementSibling?.firstElementChild?.firstElementChild?.textContent;
+  return targetDay;
+}
+
+function getTextOfEdit(editEl: Element, targetEl: Element): string {
+  let targetText = '';
+  if (editEl.dataset.editid === targetEl.dataset.itemid && targetEl.className === 'weekly-item') {
+    targetText = getDayOfEdit(targetEl);
+  } else if (editEl.dataset.editid === targetEl.dataset.titleid || editEl.dataset.editid === targetEl.dataset.timeid) {
+    if (targetEl.textContent) {
+      targetText = targetEl.textContent;
+    }
+  }
+  return targetText;
+}
+
+function compareTargetAndEditEl(editEl: Element) {
+  let targetDay = '';
+  let targetTitle = '';
+  let targetTime = '';
+  const itemEls = document.querySelectorAll('.weekly-item');
+  const titleEls = document.querySelectorAll('.weekly-item-title');
+  const timeEls = document.querySelectorAll('.weekly-item-time');
+  const importantEls = document.querySelectorAll('.weekly-item-important');
+
+  for (let i = 0; i < itemEls.length; i++) {
+    targetDay = getTextOfEdit(editEl, itemEls[i]);
+    targetTitle = getTextOfEdit(editEl, titleEls[i]);
+    targetTime = getTextOfEdit(editEl, timeEls[i]);
+    // getTextOfEdit(editEl, importantEl);
+  }
+
+  console.log(targetDay, targetTitle, targetTime);
+}
+
+function onClickEditBtn(weeklyEl: Element) {
+  weeklyEl.addEventListener('click', event => {
+    const editEls: Element[] = document.querySelectorAll('.edit-icon');
+    editEls.forEach(editEl => {
+      if (event.target === editEl) {
+        compareTargetAndEditEl(editEl);
+      }
     });
   });
 }
@@ -240,6 +287,7 @@ function main(): void {
 
   if (weeklyEl) {
     onClickDeleteBtn(weeklyEl);
+    onClickEditBtn(weeklyEl);
   }
 
   if (plusEl) {
