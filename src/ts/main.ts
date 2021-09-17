@@ -48,9 +48,18 @@ function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
 function onClickCancelBtn(plusEl: Element): void {
   const cancelBtnEl: Element | null = document.querySelector('.btn__cancel');
   const plusDayItems: Element[] = document.querySelectorAll('.plus-day-item');
+  const plusImportantStarEls: Element[] = document.querySelectorAll('.important-item-star');
   cancelBtnEl?.addEventListener('click', () => {
     plusEl.classList.remove('active');
     initializeClassListActive(plusDayItems);
+    // console.log(plusImportantStarEls);
+    plusImportantStarEls.forEach(plusImportantStarEl => {
+      if (plusImportantStarEl.dataset.important === '1') {
+        plusImportantStarEl.classList.add('active');
+      } else {
+        plusImportantStarEl.classList.remove('active');
+      }
+    });
   });
 }
 
