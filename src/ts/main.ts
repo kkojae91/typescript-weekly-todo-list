@@ -62,7 +62,6 @@ function onClickCancelBtn(plusEl: Element): void {
   cancelBtnEl?.addEventListener('click', () => {
     plusEl.classList.remove('active');
     initializeClassListActive(plusDayItems);
-    // console.log(plusImportantStarEls);
     initializeImportantStarEls(plusImportantStarEls);
   });
 }
@@ -184,6 +183,7 @@ function targetCheck(
   timeInputEl: Element,
   dayItemEl: Element,
   importantItemEl: Element,
+  plusImportantStarEls: Element[],
 ): void {
   const userTitleInput: string = titleInputEl.value;
   const userTimeInput: string = timeInputEl.value;
@@ -197,6 +197,7 @@ function targetCheck(
     makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
     plusEl.classList.remove('active');
     initializeClassListActive(plusDayEls);
+    initializeImportantStarEls(plusImportantStarEls);
     titleInputEl.value = '';
     timeInputEl.value = '';
   }
@@ -207,11 +208,12 @@ function onClickCompletionEl(plusEl: Element): void {
   const completionEl: Element | null = document.querySelector('.btn__completion');
   const titleInputEl = <HTMLInputElement>document.querySelector('.plus-title-input');
   const timeInputEl = <HTMLInputElement>document.querySelector('#time-input');
+  const plusImportantStarEls: Element[] = document.querySelectorAll('.important-item-star');
   plusEl.addEventListener('click', event => {
     const dayItemEl: Element | null = document.querySelector('.plus-day-item.active');
     const importantItemEl: Element | null = document.querySelector('.important-item-star.active');
     if (event.target === completionEl) {
-      targetCheck(plusEl, plusDayEls, titleInputEl, timeInputEl, dayItemEl, importantItemEl);
+      targetCheck(plusEl, plusDayEls, titleInputEl, timeInputEl, dayItemEl, importantItemEl, plusImportantStarEls);
     }
   });
 }
