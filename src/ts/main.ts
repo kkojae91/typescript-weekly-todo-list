@@ -243,6 +243,39 @@ function getDayOfEdit(targetEl: Element): string {
   return targetDay;
 }
 
+function editPlusSection(targetDay: string, targetTitle: string, targetTime: string, targetImportantCount: string) {
+  const plusEl: Element | null = document.querySelector('.plus-section');
+  const plusTitleInput: Element | null = document.querySelector('.plus-title-input');
+  const plusTimeInput: Element | null = document.querySelector('#time-input');
+  const plusDayItemEls: Element[] = document.querySelectorAll('.plus-day-item');
+  const plusImportantStarEls: Element[] = document.querySelectorAll('.important-item-star');
+  plusEl?.classList.add('active');
+  if (plusTitleInput) {
+    plusTitleInput.value = targetTitle;
+  }
+
+  if (plusTimeInput) {
+    plusTimeInput.value = targetTime;
+  }
+
+  plusDayItemEls.forEach(plusDayItemEl => {
+    if (plusDayItemEl.textContent === targetDay) {
+      plusDayItemEl.classList.add('active');
+    } else {
+      plusDayItemEl.classList.remove('active');
+    }
+  });
+
+  plusImportantStarEls.forEach(plusImportantStarEl => {
+    if (plusImportantStarEl.dataset.important === targetImportantCount) {
+      plusImportantStarEl.classList.add('active');
+    } else {
+      plusImportantStarEl.classList.remove('active');
+    }
+  });
+  // console.log(targetDay, targetTitle, targetTime, targetImportantCount);
+}
+
 function compareTargetAndEditEl(editEl: Element) {
   let targetDay = '';
   let targetTitle = '';
@@ -278,7 +311,8 @@ function compareTargetAndEditEl(editEl: Element) {
     }
   });
 
-  console.log(targetDay, targetTitle, targetTime, targetImportantCount);
+  // console.log(targetDay, targetTitle, targetTime, targetImportantCount);
+  editPlusSection(targetDay, targetTitle, targetTime, String(targetImportantCount));
 }
 
 function onClickEditBtn(weeklyEl: Element) {
