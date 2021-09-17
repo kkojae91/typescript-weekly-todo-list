@@ -32,21 +32,29 @@ function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
     if (event.target === monPlusIcon) {
       plusEl.classList.add('active');
       mondayItemEl.classList.add('active');
+      completionBtn?.classList.add('active');
+      editBtn?.classList.remove('active');
     } else if (event.target === tuePlusIcon) {
       plusEl.classList.add('active');
       tuesdayItemEl.classList.add('active');
+      completionBtn?.classList.add('active');
+      editBtn?.classList.remove('active');
     } else if (event.target === wedPlusIcon) {
       plusEl.classList.add('active');
       wednesdayItemEl.classList.add('active');
+      completionBtn?.classList.add('active');
+      editBtn?.classList.remove('active');
     } else if (event.target === thuPlusIcon) {
       plusEl.classList.add('active');
       thursdayItemEl.classList.add('active');
+      completionBtn?.classList.add('active');
+      editBtn?.classList.remove('active');
     } else if (event.target === friPlusIcon) {
       plusEl.classList.add('active');
       fridayItemEl.classList.add('active');
+      completionBtn?.classList.add('active');
+      editBtn?.classList.remove('active');
     }
-    completionBtn?.classList.add('active');
-    editBtn?.classList.remove('active');
   });
 }
 
@@ -64,10 +72,14 @@ function onClickCancelBtn(plusEl: Element): void {
   const cancelBtnEl: Element | null = document.querySelector('.btn__cancel');
   const plusDayItems: Element[] = document.querySelectorAll('.plus-day-item');
   const plusImportantStarEls: Element[] = document.querySelectorAll('.important-item-star');
+  const titleInputEl = <HTMLInputElement>document.querySelector('.plus-title-input');
+  const timeInputEl = <HTMLInputElement>document.querySelector('#time-input');
   cancelBtnEl?.addEventListener('click', () => {
     plusEl.classList.remove('active');
     initializeClassListActive(plusDayItems);
     initializeImportantStarEls(plusImportantStarEls);
+    titleInputEl.value = '';
+    timeInputEl.value = '';
   });
 }
 
@@ -343,9 +355,9 @@ function onClickEditBtn(weeklyEl: Element) {
     editEls.forEach(editEl => {
       if (event.target === editEl) {
         compareTargetAndEditEl(editEl);
+        completionBtn.classList.remove('active');
+        editBtn.classList.add('active');
       }
-      completionBtn.classList.remove('active');
-      editBtn.classList.add('active');
     });
   });
 }
