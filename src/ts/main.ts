@@ -25,6 +25,9 @@ function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
   const [mondayItemEl, tuesdayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl]: Element[] =
     document.querySelectorAll('.plus-day-item');
 
+  const completionBtn = document.querySelector('.btn__completion');
+  const editBtn = document.querySelector('.btn__edit');
+
   weeklyEl.addEventListener('click', event => {
     if (event.target === monPlusIcon) {
       plusEl.classList.add('active');
@@ -42,6 +45,8 @@ function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
       plusEl.classList.add('active');
       fridayItemEl.classList.add('active');
     }
+    completionBtn?.classList.add('active');
+    editBtn?.classList.remove('active');
   });
 }
 

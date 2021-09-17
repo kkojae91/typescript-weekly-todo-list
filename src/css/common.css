@@ -395,9 +395,26 @@ header .inner p {
   border-radius: 5px;
   -webkit-box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.08);
   box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.08);
-  background-color: #00c500;
   color: #fff;
   margin-right: 8px;
+}
+
+.plus-section .plus-inner .plus-section-btn.btn__completion {
+  display: none;
+  background-color: #00c500;
+}
+
+.plus-section .plus-inner .plus-section-btn.btn__completion.active {
+  display: flex;
+}
+
+.plus-section .plus-inner .plus-section-btn.btn__edit {
+  display: none;
+  background-color: rgb(71, 182, 233);
+}
+
+.plus-section .plus-inner .plus-section-btn.btn__edit.active {
+  display: flex;
 }
 
 .plus-section .plus-inner .plus-section-btn.btn__cancel {
