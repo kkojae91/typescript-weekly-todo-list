@@ -413,6 +413,17 @@ function onClickEditBtn(plusEl: Element): void {
   });
 }
 
+function onClickCheckIcon(weeklyEl: Element): void {
+  weeklyEl.addEventListener('click', event => {
+    const checkIconEls = document.querySelectorAll('.check-icon');
+    checkIconEls.forEach(checkIconEl => {
+      if (event.target === checkIconEl) {
+        console.log('123');
+      }
+    });
+  });
+}
+
 function main(): void {
   const weeklyEl: Element | null = document.querySelector('.weekly-section');
   const plusEl: Element | null = document.querySelector('.plus-section');
@@ -424,6 +435,7 @@ function main(): void {
   if (weeklyEl) {
     onClickDeleteBtn(weeklyEl);
     onClickEditIcon(weeklyEl);
+    onClickCheckIcon(weeklyEl);
   }
 
   if (plusEl) {
