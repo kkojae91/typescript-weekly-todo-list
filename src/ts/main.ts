@@ -433,26 +433,11 @@ function onClickCheckIcon(weeklyEl: Element): void {
           currentWeeklyItemEl?.classList.add('active');
           editIconEl?.classList.add('active');
         }
-        // setTodoCount(day: string): void {
         const currentDay: string =
           currentWeeklyItemEl?.parentElement?.previousElementSibling?.firstElementChild?.firstElementChild?.textContent;
-        // console.log(currentDay);
         setTodoCount(currentDay);
       }
     });
-  });
-}
-
-function setCompleteAndIncomplete() {
-  const weeklyItemEls = document.querySelectorAll('.weekly-item');
-  let completeCount = 0;
-  let incompleteCount = 0;
-  weeklyItemEls.forEach(weeklyItemEl => {
-    if (weeklyItemEl.classList.contains('active')) {
-      completeCount++;
-    } else {
-      incompleteCount++;
-    }
   });
 }
 
@@ -477,7 +462,6 @@ function main(): void {
     onClickCompletionEl(plusEl);
     onClickEditBtn(plusEl);
   }
-  setCompleteAndIncomplete();
 }
 
 main();
