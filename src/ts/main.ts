@@ -1,5 +1,3 @@
-function setCompleteAndIncomplete() {}
-
 function setTodoCount(day: string): void {
   day = day.toLowerCase().slice(0, 3);
   const itemLength: number = document.querySelectorAll(`.${day}-container .weekly-items .weekly-item`).length;
@@ -445,6 +443,19 @@ function onClickCheckIcon(weeklyEl: Element): void {
   });
 }
 
+function setCompleteAndIncomplete() {
+  const weeklyItemEls = document.querySelectorAll('.weekly-item');
+  let completeCount = 0;
+  let incompleteCount = 0;
+  weeklyItemEls.forEach(weeklyItemEl => {
+    if (weeklyItemEl.classList.contains('active')) {
+      completeCount++;
+    } else {
+      incompleteCount++;
+    }
+  });
+}
+
 function main(): void {
   const weeklyEl: Element | null = document.querySelector('.weekly-section');
   const plusEl: Element | null = document.querySelector('.plus-section');
@@ -466,6 +477,7 @@ function main(): void {
     onClickCompletionEl(plusEl);
     onClickEditBtn(plusEl);
   }
+  setCompleteAndIncomplete();
 }
 
 main();
