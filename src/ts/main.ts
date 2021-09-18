@@ -305,7 +305,6 @@ function editPlusSection(targetDay: string, targetTitle: string, targetTime: str
       plusImportantStarEl.classList.remove('active');
     }
   });
-  // console.log(targetDay, targetTitle, targetTime, targetImportantCount);
 }
 
 function compareTargetAndEditEl(editEl: Element) {
@@ -318,6 +317,8 @@ function compareTargetAndEditEl(editEl: Element) {
   itemEls.forEach(itemEl => {
     if (editEl.dataset.editid === itemEl.dataset.itemid) {
       targetDay = getDayOfEdit(itemEl);
+      const storageId = editEl.dataset.editid;
+      localStorage.setItem('currentId', storageId);
     }
   });
 
@@ -343,11 +344,10 @@ function compareTargetAndEditEl(editEl: Element) {
     }
   });
 
-  // console.log(targetDay, targetTitle, targetTime, targetImportantCount);
   editPlusSection(targetDay, targetTitle, targetTime, String(targetImportantCount));
 }
 
-function onClickEditBtn(weeklyEl: Element) {
+function onClickEditIcon(weeklyEl: Element) {
   weeklyEl.addEventListener('click', event => {
     const editEls: Element[] = document.querySelectorAll('.edit-icon');
     const completionBtn: Element = document.querySelector('.btn__completion');
@@ -362,6 +362,24 @@ function onClickEditBtn(weeklyEl: Element) {
   });
 }
 
+function onClickEditBtn(plusEl: Element): void {
+  const editBtn: Element | null = document.querySelector('.btn__edit');
+  plusEl.addEventListener('click', event => {
+    if (event.target === editBtn) {
+      const currentId = localStorage.getItem('currentId');
+      const editPlusTitleInput: string = document.querySelector('.plus-title-input')?.value;
+      const editPlusTimeInput: string = document.querySelector('#time-input')?.value;
+      const editPlusDayItemEl: string | null | undefined = document.querySelector('.plus-day-item.active')?.textContent;
+      const editPlusImportantStarEl: string = document.querySelector('.important-item-star.active')?.dataset.important;
+      console.log(editPlusTitleInput);
+      console.log(editPlusTimeInput);
+      console.log(editPlusDayItemEl);
+      console.log(editPlusImportantStarEl);
+      console.log(currentId);
+    }
+  });
+}
+
 function main(): void {
   const weeklyEl: Element | null = document.querySelector('.weekly-section');
   const plusEl: Element | null = document.querySelector('.plus-section');
@@ -372,7 +390,7 @@ function main(): void {
 
   if (weeklyEl) {
     onClickDeleteBtn(weeklyEl);
-    onClickEditBtn(weeklyEl);
+    onClickEditIcon(weeklyEl);
   }
 
   if (plusEl) {
@@ -380,6 +398,7 @@ function main(): void {
     onClickDaysEls(plusEl);
     onClickImportantEls(plusEl);
     onClickCompletionEl(plusEl);
+    onClickEditBtn(plusEl);
   }
 }
 
