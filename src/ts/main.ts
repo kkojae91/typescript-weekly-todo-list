@@ -173,7 +173,7 @@ function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInpu
     <h3 class="weekly-item-title" data-titleid=${randomId}>${userTitleInput}</h3>
     <div class="weekly-item-box">
       <p class="weekly-item-time" data-timeid=${randomId}>${userTimeInput}</p>
-      <div>
+      <div class="weekly-item-stars" data-starsid=${randomId}>
         ${importantDiv.repeat(userImportantInput)}
       </div>
     </div>
@@ -319,6 +319,7 @@ function compareTargetAndEditEl(editEl: Element) {
       targetDay = getDayOfEdit(itemEl);
       const storageId = editEl.dataset.editid;
       localStorage.setItem('currentId', storageId);
+      localStorage.setItem('currentDay', targetDay);
     }
   });
 
@@ -364,18 +365,50 @@ function onClickEditIcon(weeklyEl: Element) {
 
 function onClickEditBtn(plusEl: Element): void {
   const editBtn: Element | null = document.querySelector('.btn__edit');
+  const completionBtn: Element = document.querySelector('.btn__completion');
   plusEl.addEventListener('click', event => {
     if (event.target === editBtn) {
-      const currentId = localStorage.getItem('currentId');
-      const editPlusTitleInput: string = document.querySelector('.plus-title-input')?.value;
-      const editPlusTimeInput: string = document.querySelector('#time-input')?.value;
-      const editPlusDayItemEl: string | null | undefined = document.querySelector('.plus-day-item.active')?.textContent;
-      const editPlusImportantStarEl: string = document.querySelector('.important-item-star.active')?.dataset.important;
-      console.log(editPlusTitleInput);
-      console.log(editPlusTimeInput);
-      console.log(editPlusDayItemEl);
-      console.log(editPlusImportantStarEl);
-      console.log(currentId);
+      const currentId: string | null = localStorage.getItem('currentId');
+      const currentDay: string | null = localStorage.getItem('currentDay');
+      const currentPlusTitleInput: string = document.querySelector('.plus-title-input')?.value;
+      const currentPlusTimeInput: string = document.querySelector('#time-input')?.value;
+      const currentPlusDayItemText: string | null | undefined =
+        document.querySelector('.plus-day-item.active')?.textContent;
+      const currentPlusImportantStarCount: string =
+        document.querySelector('.important-item-star.active')?.dataset.important;
+      const editTitle: Element | null = document.querySelector(`.weekly-item-title[data-titleid="${currentId}"]`);
+      const editTime: Element | null = document.querySelector(`.weekly-item-time[data-timeid="${currentId}"]`);
+      const editStarsEl: Element | null = document.querySelector(`.weekly-item-stars[data-starsid="${currentId}"]`);
+      const editImportants = document.querySelectorAll(`.weekly-item-important[data-importantid="${currentId}"]`);
+
+      if (currentDay === currentPlusDayItemText) {
+        editTitle.textContent = currentPlusTitleInput;
+        editTime.textContent = currentPlusTimeInput;
+        editImportants.forEach(editImportant => {
+          editImportant.remove();
+        });
+
+        for (let i = 0; i < Number(currentPlusImportantStarCount); i++) {
+          const importantDiv = document.createElement('div');
+          importantDiv.setAttribute('class', 'material-icons item-star weekly-item-important');
+          importantDiv.setAttribute('data-importantid', currentId);
+          importantDiv.textContent = 'star_rate';
+          editStarsEl.appendChild(importantDiv);
+        }
+      } else {
+        const weeklyItemEl: Element = document.querySelector(`.weekly-item[data-itemid="${currentId}"]`);
+        makeTamplete(
+          currentPlusTitleInput,
+          currentPlusTimeInput,
+          currentPlusDayItemText,
+          currentPlusImportantStarCount,
+        );
+        weeklyItemEl.remove();
+      }
+
+      completionBtn.classList.remove('active');
+      editBtn.classList.add('active');
+      plusEl.classList.remove('active');
     }
   });
 }
