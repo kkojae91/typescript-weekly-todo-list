@@ -214,14 +214,28 @@ header .inner p {
   box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.08);
 }
 
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active {
+  background-color: rgb(249, 249, 249);
+  opacity: 0.5;
+}
+
 .weekly-section .inner .weekly-container .weekly-items .weekly-item:hover {
   cursor: pointer;
   background-color: rgb(249, 249, 249);
 }
 
-.weekly-section .inner .weekly-container .weekly-items .weekly-item h3 {
+.weekly-section .inner .weekly-container .weekly-items .weekly-item:hover.active {
+  background-color: rgb(249, 249, 249);
+  opacity: 1;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-item-title {
   /* font-weight: 700; */
   margin-bottom: 10px;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-item-title {
+  text-decoration: line-through;
 }
 
 .weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-item-box {
@@ -234,6 +248,10 @@ header .inner p {
 .weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-item-box .weekly-item-time {
   color: #666;
   font-size: 13px;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-item-box .weekly-item-time {
+  text-decoration: line-through;
 }
 
 .weekly-section .inner .weekly-container .weekly-items .weekly-item .item-star {
@@ -253,8 +271,28 @@ header .inner p {
   transition: 300ms;
 }
 
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-icons .weekly-icon.check-icon {
+  color: #00c500;
+  opacity: 0.5;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-icons .weekly-icon.delete-icon {
+  color: #ff3b3b;
+  opacity: 0.5;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-icons .weekly-icon.delete-icon:hover,
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-icons .weekly-icon.check-icon:hover {
+  opacity: 1;
+}
+
 .weekly-section .inner .weekly-container .weekly-items .weekly-item:hover .weekly-icons .weekly-icon {
   color: #666;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons .weekly-icon.edit-icon.active,
+.weekly-section .inner .weekly-container .weekly-items .weekly-item:hover .weekly-icons .weekly-icon.edit-icon.active {
+  display: none;
 }
 
 .weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons .weekly-icon:hover {

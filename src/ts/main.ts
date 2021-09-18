@@ -1,12 +1,17 @@
 function setTodoCount(day: string): void {
+  day = day.toLowerCase().slice(0, 3);
   const itemLength: number = document.querySelectorAll(`.${day}-container .weekly-items .weekly-item`).length;
+
+  const doneItemLength: number = document.querySelectorAll(
+    `.${day}-container .weekly-items .weekly-item.active`,
+  ).length;
 
   const todoCountEl: Element | null = document.querySelector(
     `.${day}-container .weekly-container-header .weekly-todo-count`,
   );
 
   if (todoCountEl) {
-    todoCountEl.textContent = String(itemLength);
+    todoCountEl.textContent = String(itemLength - doneItemLength);
   }
 }
 
@@ -418,7 +423,21 @@ function onClickCheckIcon(weeklyEl: Element): void {
     const checkIconEls = document.querySelectorAll('.check-icon');
     checkIconEls.forEach(checkIconEl => {
       if (event.target === checkIconEl) {
-        console.log('123');
+        const currentId = checkIconEl.dataset.checkid;
+        const currentWeeklyItemEl = document.querySelector(`.weekly-item[data-itemid="${currentId}"]`);
+        const editIconEl = document.querySelector(`.edit-icon[data-editid="${currentId}"]`);
+        if (currentWeeklyItemEl?.classList.contains('active')) {
+          currentWeeklyItemEl.classList.remove('active');
+          editIconEl?.classList.remove('active');
+        } else {
+          currentWeeklyItemEl?.classList.add('active');
+          editIconEl?.classList.add('active');
+        }
+        // setTodoCount(day: string): void {
+        const currentDay: string =
+          currentWeeklyItemEl?.parentElement?.previousElementSibling?.firstElementChild?.firstElementChild?.textContent;
+        // console.log(currentDay);
+        setTodoCount(currentDay);
       }
     });
   });
