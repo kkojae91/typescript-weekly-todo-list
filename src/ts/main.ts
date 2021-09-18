@@ -1,3 +1,5 @@
+function setCompleteAndIncomplete() {}
+
 function setTodoCount(day: string): void {
   day = day.toLowerCase().slice(0, 3);
   const itemLength: number = document.querySelectorAll(`.${day}-container .weekly-items .weekly-item`).length;
