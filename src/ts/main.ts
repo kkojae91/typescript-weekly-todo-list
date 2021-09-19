@@ -1,3 +1,51 @@
+function dragAndDrop(): void {
+  const weeklyItemsEls: Element[] = document.querySelectorAll('.weekly-items');
+  const weeklyItemEls: Element[] = document.querySelectorAll('.weekly-item');
+  let draggedItem: Element | null = null;
+
+  for (let i = 0; i < weeklyItemEls.length; i++) {
+    const weeklyItemEl: Element = weeklyItemEls[i];
+
+    weeklyItemEl.addEventListener('dragstart', () => {
+      draggedItem = weeklyItemEl;
+      setTimeout(() => {
+        weeklyItemEl.style.opacity = 0.5;
+      }, 0);
+    });
+
+    weeklyItemEl.addEventListener('dragend', () => {
+      setTimeout(() => {
+        weeklyItemEl.style.opacity = 1;
+        draggedItem = null;
+      }, 0);
+    });
+
+    for (let j = 0; j < weeklyItemsEls.length; j++) {
+      const weeklyItemsEl: Element = weeklyItemsEls[j];
+
+      weeklyItemsEl.addEventListener('dragover', event => {
+        event.preventDefault();
+      });
+
+      weeklyItemsEl.addEventListener('dragenter', event => {
+        event.preventDefault();
+        weeklyItemsEl.style.backgroundColor = 'rgb(240, 240, 240)';
+      });
+
+      weeklyItemsEl.addEventListener('dragleave', () => {
+        weeklyItemsEl.style.backgroundColor = 'rgb(251, 251, 251)';
+      });
+
+      weeklyItemsEl.addEventListener('drop', () => {
+        weeklyItemsEl.appendChild(draggedItem);
+        weeklyItemsEl.style.backgroundColor = 'rgb(251, 251, 251)';
+        const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+        dayList.forEach(day => setTodoCount(day));
+      });
+    }
+  }
+}
+
 function setTodoCount(day: string): void {
   day = day.toLowerCase().slice(0, 3);
   const itemLength: number = document.querySelectorAll(`.${day}-container .weekly-items .weekly-item`).length;
@@ -173,6 +221,7 @@ function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInpu
   const weeklyItemEl: Element = document.createElement('div');
   weeklyItemEl.setAttribute('class', 'weekly-item');
   weeklyItemEl.setAttribute('data-itemid', String(randomId));
+  weeklyItemEl.setAttribute('draggable', 'true');
   const importantDiv = `<div class="material-icons item-star weekly-item-important" data-importantid=${randomId}>star_rate</div>`;
   weeklyItemEl.innerHTML = `
     <h3 class="weekly-item-title" data-titleid=${randomId}>${userTitleInput}</h3>
@@ -236,6 +285,7 @@ function onClickCompletionEl(plusEl: Element): void {
     const importantItemEl: Element | null = document.querySelector('.important-item-star.active');
     if (event.target === completionEl) {
       targetCheck(plusEl, plusDayEls, titleInputEl, timeInputEl, dayItemEl, importantItemEl, plusImportantStarEls);
+      dragAndDrop();
     }
   });
 }
@@ -261,6 +311,7 @@ function onClickDeleteBtn(weeklyEl: Element) {
     deleteEls.forEach(deleteEl => {
       if (event.target === deleteEl) {
         compareTargetAndDeleteEl(deleteEl);
+        dragAndDrop();
       }
     });
   });
@@ -439,13 +490,6 @@ function onClickCheckIcon(weeklyEl: Element): void {
       }
     });
   });
-}
-
-function dragAndDrop(): void {
-  const weeklyItemsEls = document.querySelectorAll('.weekly-items');
-  const weeklyItemEls = document.querySelectorAll('.weekly-item');
-  console.log(weeklyItemsEls);
-  console.log(weeklyItemEls);
 }
 
 function main(): void {
