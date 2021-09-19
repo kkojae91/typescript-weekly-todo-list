@@ -72,15 +72,8 @@ header .inner p {
 
 .weekly-section .inner .weekly-container {
   width: 240px;
-  /* background-color: orange; */
-  /* margin-right: 20px;
-  margin-bottom: 20px; */
   margin: 0 10px 20px;
 }
-
-/* .weekly-section .inner .weekly-container:last-child {
-  margin-right: 20px;
-} */
 
 .weekly-section .inner .weekly-container .weekly-container-header {
   display: flex;
