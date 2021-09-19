@@ -441,6 +441,13 @@ function onClickCheckIcon(weeklyEl: Element): void {
   });
 }
 
+function dragAndDrop(): void {
+  const weeklyItemsEls = document.querySelectorAll('.weekly-items');
+  const weeklyItemEls = document.querySelectorAll('.weekly-item');
+  console.log(weeklyItemsEls);
+  console.log(weeklyItemEls);
+}
+
 function main(): void {
   const weeklyEl: Element | null = document.querySelector('.weekly-section');
   const plusEl: Element | null = document.querySelector('.plus-section');
