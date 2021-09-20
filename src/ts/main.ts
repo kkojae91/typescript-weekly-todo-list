@@ -515,9 +515,31 @@ function onClickCheckIcon(weeklyEl: Element): void {
   });
 }
 
+function onClickDarkAndLightModeIcon(toggleEl: Element) {
+  const htmlEl: HTMLHtmlElement | null = document.querySelector('html');
+  const darkIconEl: Element | null = document.querySelector('.dark-mode');
+  const lightIconEl: Element | null = document.querySelector('.light-mode');
+  const darkIcon: Element | null = document.querySelector('.dark-icon');
+  const darkToggle: Element | null = document.querySelector('.dark-toggle');
+  const lightIcon: Element | null = document.querySelector('.light-icon');
+  const lightToggle: Element | null = document.querySelector('.light-toggle');
+  toggleEl.addEventListener('click', event => {
+    if (event.target === darkIconEl || event.target === darkIcon || event.target === darkToggle) {
+      darkIconEl?.classList.remove('active');
+      lightIconEl?.classList.add('active');
+      htmlEl?.classList.remove('dark');
+    } else if (event.target === lightIconEl || event.target === lightIcon || event.target === lightToggle) {
+      darkIconEl?.classList.add('active');
+      lightIconEl?.classList.remove('active');
+      htmlEl?.classList.add('dark');
+    }
+  });
+}
+
 function main(): void {
   const weeklyEl: Element | null = document.querySelector('.weekly-section');
   const plusEl: Element | null = document.querySelector('.plus-section');
+  const toggleEl: Element | null = document.querySelector('.toggle-section');
 
   if (weeklyEl && plusEl) {
     onClickPlusBtn(weeklyEl, plusEl);
@@ -535,6 +557,10 @@ function main(): void {
     onClickImportantEls(plusEl);
     onClickCompletionEl(plusEl);
     onClickEditBtn(plusEl);
+  }
+
+  if (toggleEl) {
+    onClickDarkAndLightModeIcon(toggleEl);
   }
 }
 
