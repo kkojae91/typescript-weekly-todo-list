@@ -3,7 +3,6 @@ function dragAndDrop(): void {
   const weeklyItemEls: Element[] = document.querySelectorAll('.weekly-item');
   let draggedItem: Element | null = null;
   const htmlEl: HTMLHtmlElement | null = document.querySelector('html');
-
   for (let i = 0; i < weeklyItemEls.length; i++) {
     const weeklyItemEl: Element = weeklyItemEls[i];
 
@@ -24,47 +23,29 @@ function dragAndDrop(): void {
     for (let j = 0; j < weeklyItemsEls.length; j++) {
       const weeklyItemsEl: Element = weeklyItemsEls[j];
 
-      if (htmlEl?.classList.contains('dark')) {
-        weeklyItemsEl.addEventListener('dragover', event => {
-          event.preventDefault();
-        });
+      weeklyItemsEl.addEventListener('dragover', event => {
+        event.preventDefault();
+      });
 
-        weeklyItemsEl.addEventListener('dragenter', event => {
-          event.preventDefault();
+      weeklyItemsEl.addEventListener('dragenter', event => {
+        event.preventDefault();
+        if (htmlEl?.classList.contains('dark')) {
           weeklyItemsEl.style.backgroundColor = '#575757';
-        });
-
-        weeklyItemsEl.addEventListener('dragleave', () => {
-          weeklyItemsEl.style.backgroundColor = '#3b3b3b';
-        });
-
-        weeklyItemsEl.addEventListener('drop', () => {
-          weeklyItemsEl.appendChild(draggedItem);
-          weeklyItemsEl.style.backgroundColor = '#3b3b3b';
-          const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-          dayList.forEach(day => setTodoCount(day));
-        });
-      } else {
-        weeklyItemsEl.addEventListener('dragover', event => {
-          event.preventDefault();
-        });
-
-        weeklyItemsEl.addEventListener('dragenter', event => {
-          event.preventDefault();
+        } else {
           weeklyItemsEl.style.backgroundColor = '#f0f0f0';
-        });
+        }
+      });
 
-        weeklyItemsEl.addEventListener('dragleave', () => {
-          weeklyItemsEl.style.backgroundColor = '#fbfbfb';
-        });
+      weeklyItemsEl.addEventListener('dragleave', () => {
+        weeklyItemsEl.style.backgroundColor = 'var(--weeklyItemsBgColor)';
+      });
 
-        weeklyItemsEl.addEventListener('drop', () => {
-          weeklyItemsEl.appendChild(draggedItem);
-          weeklyItemsEl.style.backgroundColor = '#fbfbfb';
-          const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-          dayList.forEach(day => setTodoCount(day));
-        });
-      }
+      weeklyItemsEl.addEventListener('drop', () => {
+        weeklyItemsEl.appendChild(draggedItem);
+        weeklyItemsEl.style.backgroundColor = 'var(--weeklyItemsBgColor)';
+        const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+        dayList.forEach(day => setTodoCount(day));
+      });
     }
   }
 }
@@ -527,11 +508,11 @@ function onClickDarkAndLightModeIcon(toggleEl: Element) {
     if (event.target === darkIconEl || event.target === darkIcon || event.target === darkToggle) {
       darkIconEl?.classList.remove('active');
       lightIconEl?.classList.add('active');
-      htmlEl?.classList.remove('dark');
+      htmlEl?.classList.add('dark');
     } else if (event.target === lightIconEl || event.target === lightIcon || event.target === lightToggle) {
       darkIconEl?.classList.add('active');
       lightIconEl?.classList.remove('active');
-      htmlEl?.classList.add('dark');
+      htmlEl?.classList.remove('dark');
     }
   });
 }

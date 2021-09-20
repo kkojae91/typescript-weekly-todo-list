@@ -17,7 +17,7 @@
   --weeklyItemBgColor: #f9f9f9;
   --weeklyItemFontColor: ;
   --weeklyItemIconColor: #f9f9f9;
-  --weeklyItemHoverColor: #666;
+  --weeklyItemHoverColor: #f2f2f2;
   --weeklyItemIconHoverColor: #000;
   --toggleIconColor: #999;
 }
@@ -40,7 +40,7 @@
   --weeklyItemBgColor: #4b4b4b;
   --weeklyItemFontColor: ;
   --weeklyItemIconColor: #4b4b4b;
-  --weeklyItemHoverColor: #bbb;
+  --weeklyItemHoverColor: #4f4f4f;
   --weeklyItemIconHoverColor: #f1f1f1;
   --toggleIconColor: #f1f1f1;
 }
@@ -244,7 +244,8 @@ header .inner p {
 
 .weekly-section .inner .weekly-container .weekly-items .weekly-item:hover {
   cursor: pointer;
-  background-color: var(--weeklyItemBgColor);
+  background-color: var(--weeklyItemHoverColor);
+  /* opacity: 0.5; */
 }
 
 .weekly-section .inner .weekly-container .weekly-items .weekly-item:hover.active {
