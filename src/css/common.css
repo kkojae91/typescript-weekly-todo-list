@@ -19,6 +19,7 @@
   --weeklyItemIconColor: #f9f9f9;
   --weeklyItemHoverColor: #666;
   --weeklyItemIconHoverColor: #000;
+  --toggleIconColor: #999;
 }
 
 :root.dark {
@@ -41,6 +42,7 @@
   --weeklyItemIconColor: #4b4b4b;
   --weeklyItemHoverColor: #bbb;
   --weeklyItemIconHoverColor: #f1f1f1;
+  --toggleIconColor: #f1f1f1;
 }
 
 * {
@@ -495,4 +497,43 @@ header .inner p {
 
 .plus-section .plus-inner .plus-section-btn:active {
   transform: translateY(1.1px);
+}
+
+/* toggle section */
+.toggle-section {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+
+.toggle-section .light-mode,
+.toggle-section .dark-mode {
+  display: none;
+}
+
+.toggle-section .light-mode.active,
+.toggle-section .dark-mode.active {
+  display: block;
+}
+
+.toggle-section .light-mode:hover,
+.toggle-section .dark-mode:hover {
+  cursor: pointer;
+}
+
+.toggle-section .light-mode .material-icons,
+.toggle-section .dark-mode .material-icons {
+  font-size: 24px;
+  transition: 300ms ease-in-out;
+  color: var(--toggleIconColor);
+}
+
+.toggle-section .light-mode:hover .light-toggle,
+.toggle-section .light-mode:hover .light-icon {
+  color: #ffab2c;
+}
+
+.toggle-section .dark-mode:hover .dark-toggle,
+.toggle-section .dark-mode:hover .dark-icon {
+  color: #7a29ac;
 }
