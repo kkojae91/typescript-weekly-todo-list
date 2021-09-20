@@ -2,6 +2,7 @@ function dragAndDrop(): void {
   const weeklyItemsEls: Element[] = document.querySelectorAll('.weekly-items');
   const weeklyItemEls: Element[] = document.querySelectorAll('.weekly-item');
   let draggedItem: Element | null = null;
+  const htmlEl: HTMLHtmlElement | null = document.querySelector('html');
 
   for (let i = 0; i < weeklyItemEls.length; i++) {
     const weeklyItemEl: Element = weeklyItemEls[i];
@@ -23,25 +24,47 @@ function dragAndDrop(): void {
     for (let j = 0; j < weeklyItemsEls.length; j++) {
       const weeklyItemsEl: Element = weeklyItemsEls[j];
 
-      weeklyItemsEl.addEventListener('dragover', event => {
-        event.preventDefault();
-      });
+      if (htmlEl?.classList.contains('dark')) {
+        weeklyItemsEl.addEventListener('dragover', event => {
+          event.preventDefault();
+        });
 
-      weeklyItemsEl.addEventListener('dragenter', event => {
-        event.preventDefault();
-        weeklyItemsEl.style.backgroundColor = 'rgb(240, 240, 240)';
-      });
+        weeklyItemsEl.addEventListener('dragenter', event => {
+          event.preventDefault();
+          weeklyItemsEl.style.backgroundColor = '#575757';
+        });
 
-      weeklyItemsEl.addEventListener('dragleave', () => {
-        weeklyItemsEl.style.backgroundColor = 'rgb(251, 251, 251)';
-      });
+        weeklyItemsEl.addEventListener('dragleave', () => {
+          weeklyItemsEl.style.backgroundColor = '#3b3b3b';
+        });
 
-      weeklyItemsEl.addEventListener('drop', () => {
-        weeklyItemsEl.appendChild(draggedItem);
-        weeklyItemsEl.style.backgroundColor = 'rgb(251, 251, 251)';
-        const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-        dayList.forEach(day => setTodoCount(day));
-      });
+        weeklyItemsEl.addEventListener('drop', () => {
+          weeklyItemsEl.appendChild(draggedItem);
+          weeklyItemsEl.style.backgroundColor = '#3b3b3b';
+          const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+          dayList.forEach(day => setTodoCount(day));
+        });
+      } else {
+        weeklyItemsEl.addEventListener('dragover', event => {
+          event.preventDefault();
+        });
+
+        weeklyItemsEl.addEventListener('dragenter', event => {
+          event.preventDefault();
+          weeklyItemsEl.style.backgroundColor = '#f0f0f0';
+        });
+
+        weeklyItemsEl.addEventListener('dragleave', () => {
+          weeklyItemsEl.style.backgroundColor = '#fbfbfb';
+        });
+
+        weeklyItemsEl.addEventListener('drop', () => {
+          weeklyItemsEl.appendChild(draggedItem);
+          weeklyItemsEl.style.backgroundColor = '#fbfbfb';
+          const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+          dayList.forEach(day => setTodoCount(day));
+        });
+      }
     }
   }
 }
