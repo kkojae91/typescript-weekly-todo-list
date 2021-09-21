@@ -9,13 +9,17 @@ function dragAndDrop(): void {
     weeklyItemEl.addEventListener('dragstart', () => {
       draggedItem = weeklyItemEl;
       setTimeout(() => {
-        weeklyItemEl.style.opacity = 0.5;
+        weeklyItemEl.style.opacity = '0.5';
       }, 0);
     });
 
     weeklyItemEl.addEventListener('dragend', () => {
       setTimeout(() => {
-        weeklyItemEl.style.opacity = 1;
+        if (weeklyItemEl.classList.contains('active')) {
+          weeklyItemEl.style.opacity = '0.5';
+        } else {
+          weeklyItemEl.style.opacity = '1';
+        }
         draggedItem = null;
       }, 0);
     });

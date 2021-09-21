@@ -18,6 +18,7 @@
   --weeklyItemFontColor: ;
   --weeklyItemIconColor: #f9f9f9;
   --weeklyItemHoverColor: #f2f2f2;
+  --weeklyItemHoverIconColor: #acacac;
   --weeklyItemIconHoverColor: #000;
   --toggleIconColor: #999;
 }
@@ -41,6 +42,7 @@
   --weeklyItemFontColor: ;
   --weeklyItemIconColor: #4b4b4b;
   --weeklyItemHoverColor: #4f4f4f;
+  --weeklyItemHoverIconColor: #bbb;
   --weeklyItemIconHoverColor: #f1f1f1;
   --toggleIconColor: #f1f1f1;
 }
@@ -235,6 +237,7 @@ header .inner p {
   margin-bottom: 10px;
   -webkit-box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.08);
   box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.08);
+  transform: translate(0, 0);
 }
 
 .weekly-section .inner .weekly-container .weekly-items .weekly-item.active {
@@ -245,12 +248,12 @@ header .inner p {
 .weekly-section .inner .weekly-container .weekly-items .weekly-item:hover {
   cursor: pointer;
   background-color: var(--weeklyItemHoverColor);
-  /* opacity: 0.5; */
+  opacity: 0.5;
 }
 
 .weekly-section .inner .weekly-container .weekly-items .weekly-item:hover.active {
-  background-color: var(--weeklyItemBgColor);
   opacity: 1;
+  background-color: var(--weeklyItemBgColor);
 }
 
 .weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-item-title {
@@ -310,7 +313,7 @@ header .inner p {
 }
 
 .weekly-section .inner .weekly-container .weekly-items .weekly-item:hover .weekly-icons .weekly-icon {
-  color: var(--weeklyItemHoverColor);
+  color: var(--weeklyItemHoverIconColor);
 }
 
 .weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons .weekly-icon.edit-icon.active,
@@ -480,7 +483,7 @@ header .inner p {
 
 .plus-section .plus-inner .plus-section-btn.btn__edit {
   display: none;
-  background-color: rgb(71, 182, 233);
+  background-color: #47b6e9;
 }
 
 .plus-section .plus-inner .plus-section-btn.btn__edit.active {
