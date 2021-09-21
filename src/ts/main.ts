@@ -1,3 +1,4 @@
+// drag and drop
 function dragAndDrop(): void {
   const weeklyItemsEls: Element[] = document.querySelectorAll('.weekly-items');
   const weeklyItemEls: Element[] = document.querySelectorAll('.weekly-item');
@@ -224,27 +225,28 @@ function onClickImportantEls(plusEl: Element): void {
   });
 }
 
-function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInput: string, userImportantInput: string) {
+function makeTemplate(userTitleInput: string, userTimeInput: string, userDayInput: string, userImportantInput: string) {
   const randomId: number = Math.floor(Math.random() * 1000000000);
   const weeklyItemEl: Element = document.createElement('div');
   weeklyItemEl.setAttribute('class', 'weekly-item');
   weeklyItemEl.setAttribute('data-itemid', String(randomId));
   weeklyItemEl.setAttribute('draggable', 'true');
   const importantDiv = `<div class="material-icons item-star weekly-item-important" data-importantid=${randomId}>star_rate</div>`;
-  weeklyItemEl.innerHTML = `
-    <h3 class="weekly-item-title" data-titleid=${randomId}>${userTitleInput}</h3>
-    <div class="weekly-item-box">
-      <p class="weekly-item-time" data-timeid=${randomId}>${userTimeInput}</p>
-      <div class="weekly-item-stars" data-starsid=${randomId}>
-        ${importantDiv.repeat(userImportantInput)}
-      </div>
+  const template = `
+  <h3 class="weekly-item-title" data-titleid=${randomId}>${userTitleInput}</h3>
+  <div class="weekly-item-box">
+    <p class="weekly-item-time" data-timeid=${randomId}>${userTimeInput}</p>
+    <div class="weekly-item-stars" data-starsid=${randomId}>
+      ${importantDiv.repeat(userImportantInput)}
     </div>
-    <div class="weekly-icons">
-      <div class="material-icons weekly-icon edit-icon" data-editid=${randomId}>drive_file_rename_outline</div>
-      <div class="material-icons weekly-icon check-icon" data-checkid=${randomId}>check_circle_outline</div>
-      <div class="material-icons weekly-icon delete-icon" data-deleteid=${randomId}>delete_outline</div>
-    </div>
-  `;
+  </div>
+  <div class="weekly-icons">
+    <div class="material-icons weekly-icon edit-icon" data-editid=${randomId}>drive_file_rename_outline</div>
+    <div class="material-icons weekly-icon check-icon" data-checkid=${randomId}>check_circle_outline</div>
+    <div class="material-icons weekly-icon delete-icon" data-deleteid=${randomId}>delete_outline</div>
+  </div>
+`;
+  weeklyItemEl.innerHTML = template;
   const weeklyContainerEls: Elemnet[] = document.querySelectorAll('.weekly-container');
   weeklyContainerEls.forEach(weeklyContainerEl => {
     if (weeklyContainerEl.dataset.weekly === userDayInput) {
@@ -253,6 +255,44 @@ function makeTamplete(userTitleInput: string, userTimeInput: string, userDayInpu
   });
   const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
   dayList.forEach(day => setTodoCount(day));
+  const newTodoList = {
+    randomId,
+    day: userDayInput,
+    template,
+  };
+
+  let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
+  todoList ? todoList.push(newTodoList) : (todoList = [newTodoList]);
+  // localStorage.setItem('todo-list', JSON.stringify(todoList));
+  // console.log(todoList);
+  // console.log(todoList.length);
+}
+// localStorage.removeItem('todo-list');
+
+function importPreviousRecord() {
+  const previousRecord = JSON.parse(localStorage.getItem('todo-list'));
+
+  for (let i = 0; i < previousRecord.length; i++) {
+    const id = previousRecord[i].randomId;
+    const day = previousRecord[i].day;
+    const template = previousRecord[i].template;
+    const weeklyItemEl: Element = document.createElement('div');
+    weeklyItemEl.setAttribute('class', 'weekly-item');
+    weeklyItemEl.setAttribute('data-itemid', String(id));
+    weeklyItemEl.setAttribute('draggable', 'true');
+
+    weeklyItemEl.innerHTML = template;
+
+    const weeklyContainerEls: Elemnet[] = document.querySelectorAll('.weekly-container');
+    weeklyContainerEls.forEach(weeklyContainerEl => {
+      if (weeklyContainerEl.dataset.weekly === day) {
+        weeklyContainerEl.lastChild.previousSibling.appendChild(weeklyItemEl);
+      }
+    });
+    const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+    dayList.forEach(day => setTodoCount(day));
+  }
+  console.log(previousRecord);
 }
 
 function targetCheck(
@@ -273,7 +313,7 @@ function targetCheck(
   } else if (userTimeInput === '') {
     alert('Enter the time');
   } else {
-    makeTamplete(userTitleInput, userTimeInput, userDayInput, userImportantInput);
+    makeTemplate(userTitleInput, userTimeInput, userDayInput, userImportantInput);
     plusEl.classList.remove('active');
     initializeClassListActive(plusDayEls);
     initializeImportantStarEls(plusImportantStarEls);
@@ -500,6 +540,7 @@ function onClickCheckIcon(weeklyEl: Element): void {
   });
 }
 
+// porject theme
 function applyDarkMode(darkIconEl: Element, lightIconEl: Element, htmlEl: HTMLHtmlElement) {
   darkIconEl?.classList.remove('active');
   lightIconEl?.classList.add('active');
@@ -566,6 +607,8 @@ function main(): void {
   if (toggleEl) {
     onClickDarkAndLightModeIcon(toggleEl);
   }
+
+  importPreviousRecord();
 }
 
 main();
