@@ -68,6 +68,36 @@ function dragAndDrop(): void {
   }
 }
 
+function importPreviousRecord() {
+  const previousRecord = JSON.parse(localStorage.getItem('todo-list'));
+
+  for (let i = 0; i < previousRecord.length; i++) {
+    const id = previousRecord[i].randomId;
+    const day = previousRecord[i].day;
+    const template = previousRecord[i].template;
+    const isActive = previousRecord[i].isActive;
+    const weeklyItemEl: Element = document.createElement('div');
+    weeklyItemEl.setAttribute('class', 'weekly-item');
+    weeklyItemEl.setAttribute('data-itemid', String(id));
+    weeklyItemEl.setAttribute('draggable', 'true');
+    if (isActive) {
+      weeklyItemEl.setAttribute('class', 'weekly-item active');
+    }
+
+    weeklyItemEl.innerHTML = template;
+
+    const weeklyContainerEls: Elemnet[] = document.querySelectorAll('.weekly-container');
+    weeklyContainerEls.forEach(weeklyContainerEl => {
+      if (weeklyContainerEl.dataset.weekly === day) {
+        weeklyContainerEl.lastChild.previousSibling.appendChild(weeklyItemEl);
+      }
+    });
+    const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+    dayList.forEach(day => setTodoCount(day));
+  }
+  dragAndDrop();
+}
+
 function setTodoCount(day: string): void {
   day = day.toLowerCase().slice(0, 3);
   const itemLength: number = document.querySelectorAll(`.${day}-container .weekly-items .weekly-item`).length;
@@ -285,36 +315,6 @@ function makeTemplate(
   let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
   todoList ? todoList.push(newTodoList) : (todoList = [newTodoList]);
   localStorage.setItem('todo-list', JSON.stringify(todoList));
-}
-
-function importPreviousRecord() {
-  const previousRecord = JSON.parse(localStorage.getItem('todo-list'));
-
-  for (let i = 0; i < previousRecord.length; i++) {
-    const id = previousRecord[i].randomId;
-    const day = previousRecord[i].day;
-    const template = previousRecord[i].template;
-    const isActive = previousRecord[i].isActive;
-    const weeklyItemEl: Element = document.createElement('div');
-    weeklyItemEl.setAttribute('class', 'weekly-item');
-    weeklyItemEl.setAttribute('data-itemid', String(id));
-    weeklyItemEl.setAttribute('draggable', 'true');
-    if (isActive) {
-      weeklyItemEl.setAttribute('class', 'weekly-item active');
-    }
-
-    weeklyItemEl.innerHTML = template;
-
-    const weeklyContainerEls: Elemnet[] = document.querySelectorAll('.weekly-container');
-    weeklyContainerEls.forEach(weeklyContainerEl => {
-      if (weeklyContainerEl.dataset.weekly === day) {
-        weeklyContainerEl.lastChild.previousSibling.appendChild(weeklyItemEl);
-      }
-    });
-    const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-    dayList.forEach(day => setTodoCount(day));
-  }
-  dragAndDrop();
 }
 
 function targetCheck(
