@@ -500,6 +500,12 @@ function onClickCheckIcon(weeklyEl: Element): void {
   });
 }
 
+function applyDarkMode(darkIconEl: Element, lightIconEl: Element, htmlEl: HTMLHtmlElement) {
+  darkIconEl?.classList.remove('active');
+  lightIconEl?.classList.add('active');
+  htmlEl?.classList.add('dark');
+}
+
 function onClickDarkAndLightModeIcon(toggleEl: Element) {
   const htmlEl: HTMLHtmlElement | null = document.querySelector('html');
   const darkIconEl: Element | null = document.querySelector('.dark-mode');
@@ -512,9 +518,7 @@ function onClickDarkAndLightModeIcon(toggleEl: Element) {
   const projectTheme: string | null = localStorage.getItem('theme');
 
   if (projectTheme === 'dark') {
-    darkIconEl?.classList.remove('active');
-    lightIconEl?.classList.add('active');
-    htmlEl?.classList.add('dark');
+    applyDarkMode(darkIconEl, lightIconEl, htmlEl);
   } else {
     darkIconEl?.classList.add('active');
     lightIconEl?.classList.remove('active');
@@ -524,9 +528,7 @@ function onClickDarkAndLightModeIcon(toggleEl: Element) {
   toggleEl.addEventListener('click', event => {
     if (event.target === darkIconEl || event.target === darkIcon || event.target === darkToggle) {
       localStorage.setItem('theme', 'dark');
-      darkIconEl?.classList.remove('active');
-      lightIconEl?.classList.add('active');
-      htmlEl?.classList.add('dark');
+      applyDarkMode(darkIconEl, lightIconEl, htmlEl);
     } else if (event.target === lightIconEl || event.target === lightIcon || event.target === lightToggle) {
       localStorage.setItem('theme', 'light');
       darkIconEl?.classList.add('active');
