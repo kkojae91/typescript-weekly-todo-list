@@ -225,8 +225,15 @@ function onClickImportantEls(plusEl: Element): void {
   });
 }
 
-function makeTemplate(userTitleInput: string, userTimeInput: string, userDayInput: string, userImportantInput: string) {
-  const randomId: number = Math.floor(Math.random() * 1000000000);
+function makeTemplate(
+  userTitleInput: string,
+  userTimeInput: string,
+  userDayInput: string,
+  userImportantInput: string,
+  currentId: number = 0,
+) {
+  let randomId = 0;
+  currentId === 0 ? (randomId = Math.floor(Math.random() * 1000000000)) : (randomId = currentId);
   const weeklyItemEl: Element = document.createElement('div');
   weeklyItemEl.setAttribute('class', 'weekly-item');
   weeklyItemEl.setAttribute('data-itemid', String(randomId));
@@ -259,15 +266,13 @@ function makeTemplate(userTitleInput: string, userTimeInput: string, userDayInpu
     randomId,
     day: userDayInput,
     template,
+    isActive: false,
   };
 
   let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
   todoList ? todoList.push(newTodoList) : (todoList = [newTodoList]);
   localStorage.setItem('todo-list', JSON.stringify(todoList));
-  // console.log(todoList);
-  // console.log(todoList.length);
 }
-// localStorage.removeItem('todo-list');
 
 function importPreviousRecord() {
   const previousRecord = JSON.parse(localStorage.getItem('todo-list'));
@@ -276,10 +281,14 @@ function importPreviousRecord() {
     const id = previousRecord[i].randomId;
     const day = previousRecord[i].day;
     const template = previousRecord[i].template;
+    const isActive = previousRecord[i].isActive;
     const weeklyItemEl: Element = document.createElement('div');
     weeklyItemEl.setAttribute('class', 'weekly-item');
     weeklyItemEl.setAttribute('data-itemid', String(id));
     weeklyItemEl.setAttribute('draggable', 'true');
+    if (isActive) {
+      weeklyItemEl.setAttribute('class', 'weekly-item active');
+    }
 
     weeklyItemEl.innerHTML = template;
 
@@ -345,7 +354,6 @@ function compareDeleteIdAndItemId(deleteEl: Element, itemEl: Element) {
     let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
 
     todoList = todoList?.filter(todo => String(todo.randomId) !== itemEl.dataset.itemid);
-    // console.log(todoList);
     localStorage.setItem('todo-list', JSON.stringify(todoList));
 
     const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
@@ -481,40 +489,54 @@ function onClickEditBtn(plusEl: Element): void {
     if (event.target === editBtn) {
       const currentId: string | null = localStorage.getItem('currentId');
       const currentDay: string | null = localStorage.getItem('currentDay');
+
       const currentPlusTitleInput: string = document.querySelector('.plus-title-input')?.value;
       const currentPlusTimeInput: string = document.querySelector('#time-input')?.value;
       const currentPlusDayItemText: string | null | undefined =
         document.querySelector('.plus-day-item.active')?.textContent;
       const currentPlusImportantStarCount: string =
         document.querySelector('.important-item-star.active')?.dataset.important;
-      const editTitle: Element | null = document.querySelector(`.weekly-item-title[data-titleid="${currentId}"]`);
-      const editTime: Element | null = document.querySelector(`.weekly-item-time[data-timeid="${currentId}"]`);
-      const editStarsEl: Element | null = document.querySelector(`.weekly-item-stars[data-starsid="${currentId}"]`);
-      const editImportants = document.querySelectorAll(`.weekly-item-important[data-importantid="${currentId}"]`);
+      const editWeeklyItemEl: Element = document.querySelector(`.weekly-item[data-itemid="${currentId}"]`);
 
       if (currentDay === currentPlusDayItemText) {
-        editTitle.textContent = currentPlusTitleInput;
-        editTime.textContent = currentPlusTimeInput;
-        editImportants.forEach(editImportant => {
-          editImportant.remove();
-        });
+        const importantDiv = `<div class="material-icons item-star weekly-item-important" data-importantid=${currentId}>star_rate</div>`;
+        const template = `
+        <h3 class="weekly-item-title" data-titleid=${currentId}>${currentPlusTitleInput}</h3>
+        <div class="weekly-item-box">
+          <p class="weekly-item-time" data-timeid=${currentId}>${currentPlusTimeInput}</p>
+          <div class="weekly-item-stars" data-starsid=${currentId}>
+            ${importantDiv.repeat(Number(currentPlusImportantStarCount))}
+          </div>
+        </div>
+        <div class="weekly-icons">
+          <div class="material-icons weekly-icon edit-icon" data-editid=${currentId}>drive_file_rename_outline</div>
+          <div class="material-icons weekly-icon check-icon" data-checkid=${currentId}>check_circle_outline</div>
+          <div class="material-icons weekly-icon delete-icon" data-deleteid=${currentId}>delete_outline</div>
+        </div>
+      `;
+        editWeeklyItemEl.innerHTML = template;
 
-        for (let i = 0; i < Number(currentPlusImportantStarCount); i++) {
-          const importantDiv = document.createElement('div');
-          importantDiv.setAttribute('class', 'material-icons item-star weekly-item-important');
-          importantDiv.setAttribute('data-importantid', currentId);
-          importantDiv.textContent = 'star_rate';
-          editStarsEl.appendChild(importantDiv);
-        }
+        let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
+        todoList?.forEach(todo => {
+          if (String(todo.randomId) === currentId) {
+            todo.template = template;
+          }
+        });
+        localStorage.setItem('todo-list', JSON.stringify(todoList));
       } else {
         const weeklyItemEl: Element = document.querySelector(`.weekly-item[data-itemid="${currentId}"]`);
-        makeTamplete(
+        makeTemplate(
           currentPlusTitleInput,
           currentPlusTimeInput,
           currentPlusDayItemText,
           currentPlusImportantStarCount,
         );
         weeklyItemEl.remove();
+
+        let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
+
+        todoList = todoList?.filter(todo => String(todo.randomId) !== currentId);
+        localStorage.setItem('todo-list', JSON.stringify(todoList));
       }
 
       completionBtn.classList.remove('active');
@@ -532,13 +554,26 @@ function onClickCheckIcon(weeklyEl: Element): void {
         const currentId = checkIconEl.dataset.checkid;
         const currentWeeklyItemEl = document.querySelector(`.weekly-item[data-itemid="${currentId}"]`);
         const editIconEl = document.querySelector(`.edit-icon[data-editid="${currentId}"]`);
+        let template = '';
         if (currentWeeklyItemEl?.classList.contains('active')) {
           currentWeeklyItemEl.classList.remove('active');
           editIconEl?.classList.remove('active');
+          template = currentWeeklyItemEl?.innerHTML;
         } else {
           currentWeeklyItemEl?.classList.add('active');
           editIconEl?.classList.add('active');
+          template = currentWeeklyItemEl?.innerHTML;
         }
+
+        let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
+        todoList?.forEach(todo => {
+          if (String(todo.randomId) === currentId) {
+            todo.template = template;
+            todo.isActive = true;
+          }
+        });
+        localStorage.setItem('todo-list', JSON.stringify(todoList));
+
         const currentDay: string =
           currentWeeklyItemEl?.parentElement?.previousElementSibling?.firstElementChild?.firstElementChild?.textContent;
         setTodoCount(currentDay);
