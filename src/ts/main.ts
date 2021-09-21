@@ -506,6 +506,12 @@ function applyDarkMode(darkIconEl: Element, lightIconEl: Element, htmlEl: HTMLHt
   htmlEl?.classList.add('dark');
 }
 
+function applyLightMode(darkIconEl: Element, lightIconEl: Element, htmlEl: HTMLHtmlElement) {
+  darkIconEl?.classList.add('active');
+  lightIconEl?.classList.remove('active');
+  htmlEl?.classList.remove('dark');
+}
+
 function onClickDarkAndLightModeIcon(toggleEl: Element) {
   const htmlEl: HTMLHtmlElement | null = document.querySelector('html');
   const darkIconEl: Element | null = document.querySelector('.dark-mode');
@@ -520,9 +526,7 @@ function onClickDarkAndLightModeIcon(toggleEl: Element) {
   if (projectTheme === 'dark') {
     applyDarkMode(darkIconEl, lightIconEl, htmlEl);
   } else {
-    darkIconEl?.classList.add('active');
-    lightIconEl?.classList.remove('active');
-    htmlEl?.classList.remove('dark');
+    applyLightMode(darkIconEl, lightIconEl, htmlEl);
   }
 
   toggleEl.addEventListener('click', event => {
@@ -531,9 +535,7 @@ function onClickDarkAndLightModeIcon(toggleEl: Element) {
       applyDarkMode(darkIconEl, lightIconEl, htmlEl);
     } else if (event.target === lightIconEl || event.target === lightIcon || event.target === lightToggle) {
       localStorage.setItem('theme', 'light');
-      darkIconEl?.classList.add('active');
-      lightIconEl?.classList.remove('active');
-      htmlEl?.classList.remove('dark');
+      applyLightMode(darkIconEl, lightIconEl, htmlEl);
     }
   });
 }
