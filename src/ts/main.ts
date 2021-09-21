@@ -263,7 +263,7 @@ function makeTemplate(userTitleInput: string, userTimeInput: string, userDayInpu
 
   let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
   todoList ? todoList.push(newTodoList) : (todoList = [newTodoList]);
-  // localStorage.setItem('todo-list', JSON.stringify(todoList));
+  localStorage.setItem('todo-list', JSON.stringify(todoList));
   // console.log(todoList);
   // console.log(todoList.length);
 }
@@ -292,7 +292,7 @@ function importPreviousRecord() {
     const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
     dayList.forEach(day => setTodoCount(day));
   }
-  console.log(previousRecord);
+  dragAndDrop();
 }
 
 function targetCheck(
@@ -341,6 +341,13 @@ function onClickCompletionEl(plusEl: Element): void {
 function compareDeleteIdAndItemId(deleteEl: Element, itemEl: Element) {
   if (deleteEl.dataset.deleteid === itemEl.dataset.itemid) {
     itemEl.remove();
+
+    let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
+
+    todoList = todoList?.filter(todo => String(todo.randomId) !== itemEl.dataset.itemid);
+    // console.log(todoList);
+    localStorage.setItem('todo-list', JSON.stringify(todoList));
+
     const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
     dayList.forEach(day => setTodoCount(day));
   }
