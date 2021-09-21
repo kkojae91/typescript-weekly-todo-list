@@ -41,7 +41,7 @@
   --weeklyItemBgColor: #4b4b4b;
   --weeklyItemFontColor: ;
   --weeklyItemIconColor: #4b4b4b;
-  --weeklyItemHoverColor: #4f4f4f;
+  --weeklyItemHoverColor: #505050;
   --weeklyItemHoverIconColor: #bbb;
   --weeklyItemIconHoverColor: #f1f1f1;
   --toggleIconColor: #f1f1f1;
@@ -233,6 +233,7 @@ header .inner p {
   height: 100px;
   padding: 10px;
   border: 1px solid var(--borderColor);
+  background-color: var(--weeklyItemBgColor);
   border-radius: 10px;
   margin-bottom: 10px;
   -webkit-box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.08);
