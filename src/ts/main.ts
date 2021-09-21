@@ -48,6 +48,19 @@ function dragAndDrop(): void {
       weeklyItemsEl.addEventListener('drop', () => {
         weeklyItemsEl.appendChild(draggedItem);
         weeklyItemsEl.style.backgroundColor = 'var(--weeklyItemsBgColor)';
+
+        const currentId = draggedItem.dataset.itemid;
+        const currentDay = getDayOfEdit(draggedItem);
+        const template = draggedItem.innerHTML;
+        let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
+        todoList?.forEach(todo => {
+          if (String(todo.randomId) === currentId) {
+            todo.day = currentDay;
+            todo.template = template;
+          }
+        });
+        localStorage.setItem('todo-list', JSON.stringify(todoList));
+
         const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
         dayList.forEach(day => setTodoCount(day));
       });
