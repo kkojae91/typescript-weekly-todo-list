@@ -508,12 +508,27 @@ function onClickDarkAndLightModeIcon(toggleEl: Element) {
   const darkToggle: Element | null = document.querySelector('.dark-toggle');
   const lightIcon: Element | null = document.querySelector('.light-icon');
   const lightToggle: Element | null = document.querySelector('.light-toggle');
+
+  const projectTheme: string | null = localStorage.getItem('theme');
+
+  if (projectTheme === 'dark') {
+    darkIconEl?.classList.remove('active');
+    lightIconEl?.classList.add('active');
+    htmlEl?.classList.add('dark');
+  } else {
+    darkIconEl?.classList.add('active');
+    lightIconEl?.classList.remove('active');
+    htmlEl?.classList.remove('dark');
+  }
+
   toggleEl.addEventListener('click', event => {
     if (event.target === darkIconEl || event.target === darkIcon || event.target === darkToggle) {
+      localStorage.setItem('theme', 'dark');
       darkIconEl?.classList.remove('active');
       lightIconEl?.classList.add('active');
       htmlEl?.classList.add('dark');
     } else if (event.target === lightIconEl || event.target === lightIcon || event.target === lightToggle) {
+      localStorage.setItem('theme', 'light');
       darkIconEl?.classList.add('active');
       lightIconEl?.classList.remove('active');
       htmlEl?.classList.remove('dark');
