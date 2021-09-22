@@ -9,6 +9,7 @@ import onClickCancelBtn from './event/onClick-cancel-btn';
 import onClickDeleteBtn from './event/onClick-delete-btn';
 import onClickEditIcon from './event/onClick-edit-icon';
 import onClickImportantEls from './event/onClick-important-els';
+import hasClassListActive from './has-classList-active';
 
 function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
   const [monPlusIcon, tuePlusIcon, wedPlusIcon, thuPlusIcon, friPlusIcon]: Element[] =
@@ -48,18 +49,6 @@ function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
       editBtn?.classList.remove('active');
     }
   });
-}
-
-function hasClassListActive(Els: Element[]): [boolean, Element] {
-  let bool = false;
-  let trueEls: Element[] = [];
-  Els.forEach(El => {
-    if (El.classList.contains('active')) {
-      bool = true;
-      trueEls.push(El);
-    }
-  });
-  return [bool, trueEls];
 }
 
 function checkEls(defaultEl: Element, anotherEls: Element[]): void {

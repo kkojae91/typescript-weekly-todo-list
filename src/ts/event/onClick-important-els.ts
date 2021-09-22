@@ -1,3 +1,5 @@
+import hasClassListActive from '../has-classList-active';
+
 function checkOnClick(Els: Element[], target: Element) {
   let bool = false;
   Els.forEach(El => {
