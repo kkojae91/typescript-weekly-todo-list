@@ -1,5 +1,6 @@
 import setTodoCount from '../set-todo-count';
 import { initializeClassListActive, initializeImportantStarEls } from '../initialize/initialize';
+import { makeWeeklyItem, makeWeeklyIteminnerHTML } from '../template/makeTemplate';
 
 export default function onClickEditBtn(plusEl: Element): void {
   const editBtn: Element | null = document.querySelector('.btn__edit');
