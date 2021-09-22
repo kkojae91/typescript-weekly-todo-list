@@ -1,5 +1,7 @@
-export default function getDayOfEdit(targetEl: Element): string {
-  const targetDay: string =
+export default function getDayOfEdit(targetEl: HTMLDivElement): string | void {
+  const targetDay: string | null | undefined =
     targetEl.parentElement?.previousElementSibling?.firstElementChild?.firstElementChild?.textContent;
-  return targetDay;
+  if (targetDay) {
+    return targetDay;
+  }
 }
