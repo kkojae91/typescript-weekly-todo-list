@@ -10,46 +10,7 @@ import onClickDeleteBtn from './event/onClick-delete-btn';
 import onClickEditIcon from './event/onClick-edit-icon';
 import onClickImportantEls from './event/onClick-important-els';
 import onClickDaysEls from './event/onClick-days-els';
-
-function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
-  const [monPlusIcon, tuePlusIcon, wedPlusIcon, thuPlusIcon, friPlusIcon]: Element[] =
-    document.querySelectorAll('.add-icon');
-
-  const [mondayItemEl, tuesdayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl]: Element[] =
-    document.querySelectorAll('.plus-day-item');
-
-  const completionBtn: Element = document.querySelector('.btn__completion');
-  const editBtn: Element = document.querySelector('.btn__edit');
-
-  weeklyEl.addEventListener('click', event => {
-    if (event.target === monPlusIcon) {
-      plusEl.classList.add('active');
-      mondayItemEl.classList.add('active');
-      completionBtn?.classList.add('active');
-      editBtn?.classList.remove('active');
-    } else if (event.target === tuePlusIcon) {
-      plusEl.classList.add('active');
-      tuesdayItemEl.classList.add('active');
-      completionBtn?.classList.add('active');
-      editBtn?.classList.remove('active');
-    } else if (event.target === wedPlusIcon) {
-      plusEl.classList.add('active');
-      wednesdayItemEl.classList.add('active');
-      completionBtn?.classList.add('active');
-      editBtn?.classList.remove('active');
-    } else if (event.target === thuPlusIcon) {
-      plusEl.classList.add('active');
-      thursdayItemEl.classList.add('active');
-      completionBtn?.classList.add('active');
-      editBtn?.classList.remove('active');
-    } else if (event.target === friPlusIcon) {
-      plusEl.classList.add('active');
-      fridayItemEl.classList.add('active');
-      completionBtn?.classList.add('active');
-      editBtn?.classList.remove('active');
-    }
-  });
-}
+import onClickPlusBtn from './event/onClick-plus-btn';
 
 function targetCheck(
   plusEl: Element,
