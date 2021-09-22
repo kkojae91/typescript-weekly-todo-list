@@ -1,6 +1,6 @@
 import hasClassListActive from '../has-classList-active';
 
-function checkEls(defaultEl: Element, anotherEls: Element[]): void {
+function checkEls(defaultEl: Element, anotherEls: HTMLDivElement[]): void {
   const [checkBoolean, checkEls]: [boolean, Element[]] = hasClassListActive(anotherEls);
   if (!checkBoolean) {
     defaultEl.classList.add('active');
@@ -11,8 +11,8 @@ function checkEls(defaultEl: Element, anotherEls: Element[]): void {
 }
 
 export default function onClickDaysEls(plusEl: Element): void {
-  const [mondayItemEl, tuesdayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl]: Element[] =
-    document.querySelectorAll('.plus-day-item');
+  const [mondayItemEl, tuesdayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl]: NodeListOf<HTMLDivElement> =
+    document.querySelectorAll<HTMLDivElement>('.plus-day-item');
 
   plusEl.addEventListener('click', event => {
     if (event.target === mondayItemEl) {
