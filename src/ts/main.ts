@@ -394,20 +394,24 @@ function onClickEditBtn(plusEl: Element): void {
       const currentId: string | null = localStorage.getItem('currentId');
       const currentDay: string | null = localStorage.getItem('currentDay');
 
-      const currentPlusTitleInput: string = document.querySelector('.plus-title-input')?.value;
-      const currentPlusTimeInput: string = document.querySelector('#time-input')?.value;
+      const currentPlusTitleEl = document.querySelector('.plus-title-input');
+      const currentPlusTimeEl = document.querySelector('#time-input');
+      const currentPlusTitleInput: string = currentPlusTitleEl?.value;
+      const currentPlusTimeInput: string = currentPlusTimeEl?.value;
       const currentPlusDayItemText: string | null | undefined =
         document.querySelector('.plus-day-item.active')?.textContent;
       const currentPlusImportantStarCount: string =
         document.querySelector('.important-item-star.active')?.dataset.important;
       const editWeeklyItemEl: Element = document.querySelector(`.weekly-item[data-itemid="${currentId}"]`);
 
+      const plusDayEls = document.querySelectorAll('.plus-day-item');
+      const plusImportantStarEls: Element[] = document.querySelectorAll('.important-item-star');
+
       if (currentDay === currentPlusDayItemText) {
         const template: string = makeWeeklyIteminnerHTML(
           currentId,
           currentPlusTitleInput,
           currentPlusTimeInput,
-          currentPlusDayItemText,
           currentPlusImportantStarCount,
         );
         editWeeklyItemEl.innerHTML = template;
@@ -440,10 +444,13 @@ function onClickEditBtn(plusEl: Element): void {
         todoList = todoList?.filter(todo => String(todo.randomId) !== currentId);
         localStorage.setItem('todo-list', JSON.stringify(todoList));
       }
-
       completionBtn.classList.remove('active');
       editBtn.classList.add('active');
       plusEl.classList.remove('active');
+      initializeClassListActive(plusDayEls);
+      initializeImportantStarEls(plusImportantStarEls);
+      currentPlusTitleEl.value = '';
+      currentPlusTimeEl.value = '';
     }
   });
 }
