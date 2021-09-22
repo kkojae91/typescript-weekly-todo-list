@@ -1,0 +1,220 @@
+/* weekly section */
+.weekly-section {
+}
+
+.weekly-section .inner {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.weekly-section .inner .weekly-container {
+  width: 240px;
+  margin: 0 10px 20px;
+}
+
+.weekly-section .inner .weekly-container .weekly-container-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.weekly-section .inner .weekly-container .weekly-container-header .weekly-container-header-title {
+  display: flex;
+  align-items: center;
+}
+
+.plus-day-mon,
+.plus-day-tue,
+.plus-day-wed,
+.plus-day-thu,
+.plus-day-fri {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  background-color: var(--plusDayBgColor);
+  padding: 3px 4px;
+  border-radius: 5px;
+  transition: background-color 300ms;
+}
+
+.plus-day-mon.active {
+  background-color: var(--monBgColor);
+}
+.plus-day-tue.active {
+  background-color: var(--tueBgColor);
+}
+.plus-day-wed.active {
+  background-color: var(--wedBgColor);
+}
+.plus-day-thu.active {
+  background-color: var(--thuBgColor);
+}
+.plus-day-fri.active {
+  background-color: var(--friBgColor);
+}
+
+.plus-day-mon:hover,
+.plus-day-tue:hover,
+.plus-day-wed:hover,
+.plus-day-thu:hover,
+.plus-day-fri:hover {
+  cursor: pointer;
+}
+
+.plus-day-mon:hover,
+.weekly-section .inner .weekly-container:nth-child(1) .weekly-container-header .weekly-container-header-title h2 {
+  margin-right: 5px;
+  background-color: var(--monBgColor);
+  padding: 3px 4px;
+  border-radius: 5px;
+}
+
+.plus-day-tue:hover,
+.weekly-section .inner .weekly-container:nth-child(2) .weekly-container-header .weekly-container-header-title h2 {
+  margin-right: 5px;
+  background-color: var(--tueBgColor);
+  padding: 3px 4px;
+  border-radius: 5px;
+}
+
+.plus-day-wed:hover,
+.weekly-section .inner .weekly-container:nth-child(3) .weekly-container-header .weekly-container-header-title h2 {
+  margin-right: 5px;
+  background-color: var(--wedBgColor);
+  padding: 3px 4px;
+  border-radius: 5px;
+}
+
+.plus-day-thu:hover,
+.weekly-section .inner .weekly-container:nth-child(4) .weekly-container-header .weekly-container-header-title h2 {
+  margin-right: 5px;
+  background-color: var(--thuBgColor);
+  padding: 3px 4px;
+  border-radius: 5px;
+}
+
+.plus-day-fri:hover,
+.weekly-section .inner .weekly-container:nth-child(5) .weekly-container-header .weekly-container-header-title h2 {
+  margin-right: 5px;
+  background-color: var(--friBgColor);
+  padding: 3px 4px;
+  border-radius: 5px;
+}
+
+.weekly-section .inner .weekly-container .weekly-container-header .weekly-container-header-title p {
+  color: #999;
+}
+
+.weekly-section .inner .weekly-container .weekly-items {
+  display: flex;
+  flex: 1;
+  flex-flow: column;
+  align-items: center;
+  min-width: 240px;
+  min-height: 300px;
+  background-color: var(--weeklyItemsBgColor);
+  border-radius: 10px;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item {
+  width: 230px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid var(--borderColor);
+  background-color: var(--weeklyItemBgColor);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.08);
+  box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.08);
+  transform: translate(0, 0);
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active {
+  background-color: var(--weeklyItemBgColor);
+  opacity: 0.5;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item:hover {
+  cursor: pointer;
+  background-color: var(--weeklyItemHoverColor);
+  opacity: 0.5;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item:hover.active {
+  opacity: 1;
+  background-color: var(--weeklyItemBgColor);
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-item-title {
+  /* font-weight: 700; */
+  margin-bottom: 10px;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-item-title {
+  text-decoration: line-through;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-item-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-item-box .weekly-item-time {
+  font-size: 13px;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-item-box .weekly-item-time {
+  text-decoration: line-through;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .item-star {
+  color: #ff3b3b;
+  font-size: 16px;
+  cursor: default;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons .weekly-icon {
+  margin-right: 3px;
+  color: var(--weeklyItemIconColor);
+  transition: 300ms;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-icons .weekly-icon.check-icon {
+  color: #00c500;
+  opacity: 0.5;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-icons .weekly-icon.delete-icon {
+  color: #ff3b3b;
+  opacity: 0.5;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-icons .weekly-icon.delete-icon:hover,
+.weekly-section .inner .weekly-container .weekly-items .weekly-item.active .weekly-icons .weekly-icon.check-icon:hover {
+  opacity: 1;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item:hover .weekly-icons .weekly-icon {
+  color: var(--weeklyItemHoverIconColor);
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons .weekly-icon.edit-icon.active,
+.weekly-section .inner .weekly-container .weekly-items .weekly-item:hover .weekly-icons .weekly-icon.edit-icon.active {
+  display: none;
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons .weekly-icon:hover {
+  color: var(--weeklyItemIconHoverColor);
+}
+
+.weekly-section .inner .weekly-container .weekly-items .weekly-item .weekly-icons .weekly-icon:last-child {
+  margin-right: 0;
+}

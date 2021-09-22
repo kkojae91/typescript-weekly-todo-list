@@ -1,0 +1,26 @@
+/* header section */
+header {
+  margin: 30px 0;
+  padding: 30px;
+}
+
+header .inner {
+  display: flex;
+  align-items: flex-end;
+}
+
+header .inner .header-sub-section .header-incomplete {
+  display: flex;
+}
+
+header .inner h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-right: 9px;
+}
+
+header .inner p {
+  font-size: 14px;
+  color: #999;
+  font-style: italic;
+}
