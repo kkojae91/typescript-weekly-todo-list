@@ -1,6 +1,4 @@
-import setTodoCount from './set-todo-count';
 import dragAndDrop from './drag-and-drop';
-import getDayOfEdit from './get-day-of-edit';
 import importPreviousRecord from './import-previous-record';
 import onClickDarkAndLightModeIcon from './project-theme';
 import onClickCheckIcon from './event/onClick-check-icon';
@@ -8,6 +6,8 @@ import onClickEditBtn from './event/onClick-edit-btn';
 import { initializeClassListActive, initializeImportantStarEls } from './initialize/initialize';
 import { makeWeeklyItem, makeWeeklyIteminnerHTML } from './template/makeTemplate';
 import onClickCancelBtn from './event/onClick-cancel-btn';
+import onClickDeleteBtn from './event/onClick-delete-btn';
+import onClickEditIcon from './event/onClick-edit-icon';
 
 function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
   const [monPlusIcon, tuePlusIcon, wedPlusIcon, thuPlusIcon, friPlusIcon]: Element[] =
@@ -169,135 +169,6 @@ function onClickCompletionEl(plusEl: Element): void {
       targetCheck(plusEl, plusDayEls, titleInputEl, timeInputEl, dayItemEl, importantItemEl, plusImportantStarEls);
       dragAndDrop();
     }
-  });
-}
-
-function compareDeleteIdAndItemId(deleteEl: Element, itemEl: Element) {
-  if (deleteEl.dataset.deleteid === itemEl.dataset.itemid) {
-    itemEl.remove();
-
-    let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
-
-    todoList = todoList?.filter(todo => String(todo.randomId) !== itemEl.dataset.itemid);
-    localStorage.setItem('todo-list', JSON.stringify(todoList));
-
-    const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-    dayList.forEach(day => setTodoCount(day));
-  }
-}
-
-function compareTargetAndDeleteEl(deleteEl: Element) {
-  const itemEls = document.querySelectorAll('.weekly-item');
-  itemEls.forEach(itemEl => {
-    compareDeleteIdAndItemId(deleteEl, itemEl);
-  });
-}
-
-function onClickDeleteBtn(weeklyEl: Element) {
-  weeklyEl.addEventListener('click', event => {
-    const deleteEls: Element[] = document.querySelectorAll('.delete-icon');
-    deleteEls.forEach(deleteEl => {
-      if (event.target === deleteEl) {
-        compareTargetAndDeleteEl(deleteEl);
-        dragAndDrop();
-      }
-    });
-  });
-}
-
-function getEditEls() {
-  const itemEls = document.querySelectorAll('.weekly-item');
-  const titleEls = document.querySelectorAll('.weekly-item-title');
-  const timeEls = document.querySelectorAll('.weekly-item-time');
-  const importantEls = document.querySelectorAll('.weekly-item-important');
-  return [itemEls, titleEls, timeEls, importantEls];
-}
-
-function editPlusSection(targetDay: string, targetTitle: string, targetTime: string, targetImportantCount: string) {
-  const plusEl: Element | null = document.querySelector('.plus-section');
-  const plusTitleInput: Element | null = document.querySelector('.plus-title-input');
-  const plusTimeInput: Element | null = document.querySelector('#time-input');
-  const plusDayItemEls: Element[] = document.querySelectorAll('.plus-day-item');
-  const plusImportantStarEls: Element[] = document.querySelectorAll('.important-item-star');
-  plusEl?.classList.add('active');
-  if (plusTitleInput) {
-    plusTitleInput.value = targetTitle;
-  }
-
-  if (plusTimeInput) {
-    plusTimeInput.value = targetTime;
-  }
-
-  plusDayItemEls.forEach(plusDayItemEl => {
-    if (plusDayItemEl.textContent === targetDay) {
-      plusDayItemEl.classList.add('active');
-    } else {
-      plusDayItemEl.classList.remove('active');
-    }
-  });
-
-  plusImportantStarEls.forEach(plusImportantStarEl => {
-    if (plusImportantStarEl.dataset.important === targetImportantCount) {
-      plusImportantStarEl.classList.add('active');
-    } else {
-      plusImportantStarEl.classList.remove('active');
-    }
-  });
-}
-
-function compareTargetAndEditEl(editEl: Element) {
-  let targetDay = '';
-  let targetTitle = '';
-  let targetTime = '';
-  let targetImportantCount = 0;
-  const [itemEls, titleEls, timeEls, importantEls] = getEditEls();
-
-  itemEls.forEach(itemEl => {
-    if (editEl.dataset.editid === itemEl.dataset.itemid) {
-      targetDay = getDayOfEdit(itemEl);
-      const storageId = editEl.dataset.editid;
-      localStorage.setItem('currentId', storageId);
-      localStorage.setItem('currentDay', targetDay);
-    }
-  });
-
-  titleEls.forEach(titleEl => {
-    if (editEl.dataset.editid === titleEl.dataset.titleid) {
-      if (titleEl.textContent) {
-        targetTitle = titleEl.textContent;
-      }
-    }
-  });
-
-  timeEls.forEach(timeEl => {
-    if (editEl.dataset.editid === timeEl.dataset.timeid) {
-      if (timeEl.textContent) {
-        targetTime = timeEl.textContent;
-      }
-    }
-  });
-
-  importantEls.forEach(importantEl => {
-    if (editEl.dataset.editid === importantEl.dataset.importantid) {
-      targetImportantCount++;
-    }
-  });
-
-  editPlusSection(targetDay, targetTitle, targetTime, String(targetImportantCount));
-}
-
-function onClickEditIcon(weeklyEl: Element) {
-  weeklyEl.addEventListener('click', event => {
-    const editEls: Element[] = document.querySelectorAll('.edit-icon');
-    const completionBtn: Element = document.querySelector('.btn__completion');
-    const editBtn: Element = document.querySelector('.btn__edit');
-    editEls.forEach(editEl => {
-      if (event.target === editEl) {
-        compareTargetAndEditEl(editEl);
-        completionBtn.classList.remove('active');
-        editBtn.classList.add('active');
-      }
-    });
   });
 }
 
