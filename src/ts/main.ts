@@ -1,36 +1,8 @@
 import setTodoCount from './set-todo-count';
 import dragAndDrop from './drag-and-drop';
 import getDayOfEdit from './get-day-of-edit';
-
-function importPreviousRecord() {
-  const previousRecord = JSON.parse(localStorage.getItem('todo-list'));
-
-  for (let i = 0; i < previousRecord.length; i++) {
-    const id = previousRecord[i].randomId;
-    const day = previousRecord[i].day;
-    const template = previousRecord[i].template;
-    const isActive = previousRecord[i].isActive;
-    const weeklyItemEl: Element = document.createElement('div');
-    weeklyItemEl.setAttribute('class', 'weekly-item');
-    weeklyItemEl.setAttribute('data-itemid', String(id));
-    weeklyItemEl.setAttribute('draggable', 'true');
-    if (isActive) {
-      weeklyItemEl.setAttribute('class', 'weekly-item active');
-    }
-
-    weeklyItemEl.innerHTML = template;
-
-    const weeklyContainerEls: Elemnet[] = document.querySelectorAll('.weekly-container');
-    weeklyContainerEls.forEach(weeklyContainerEl => {
-      if (weeklyContainerEl.dataset.weekly === day) {
-        weeklyContainerEl.lastChild.previousSibling.appendChild(weeklyItemEl);
-      }
-    });
-    const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-    dayList.forEach(day => setTodoCount(day));
-  }
-  dragAndDrop();
-}
+import importPreviousRecord from './import-previous-record';
+import onClickDarkAndLightModeIcon from './project-theme';
 
 function initializeClassListActive(Els: Element[]): void {
   Els.forEach(El => {
@@ -509,47 +481,6 @@ function onClickCheckIcon(weeklyEl: Element): void {
         setTodoCount(currentDay);
       }
     });
-  });
-}
-
-// porject theme
-function applyDarkMode(darkIconEl: Element, lightIconEl: Element, htmlEl: HTMLHtmlElement) {
-  darkIconEl?.classList.remove('active');
-  lightIconEl?.classList.add('active');
-  htmlEl?.classList.add('dark');
-}
-
-function applyLightMode(darkIconEl: Element, lightIconEl: Element, htmlEl: HTMLHtmlElement) {
-  darkIconEl?.classList.add('active');
-  lightIconEl?.classList.remove('active');
-  htmlEl?.classList.remove('dark');
-}
-
-function onClickDarkAndLightModeIcon(toggleEl: Element) {
-  const htmlEl: HTMLHtmlElement | null = document.querySelector('html');
-  const darkIconEl: Element | null = document.querySelector('.dark-mode');
-  const lightIconEl: Element | null = document.querySelector('.light-mode');
-  const darkIcon: Element | null = document.querySelector('.dark-icon');
-  const darkToggle: Element | null = document.querySelector('.dark-toggle');
-  const lightIcon: Element | null = document.querySelector('.light-icon');
-  const lightToggle: Element | null = document.querySelector('.light-toggle');
-
-  const projectTheme: string | null = localStorage.getItem('theme');
-
-  if (projectTheme === 'dark') {
-    applyDarkMode(darkIconEl, lightIconEl, htmlEl);
-  } else {
-    applyLightMode(darkIconEl, lightIconEl, htmlEl);
-  }
-
-  toggleEl.addEventListener('click', event => {
-    if (event.target === darkIconEl || event.target === darkIcon || event.target === darkToggle) {
-      localStorage.setItem('theme', 'dark');
-      applyDarkMode(darkIconEl, lightIconEl, htmlEl);
-    } else if (event.target === lightIconEl || event.target === lightIcon || event.target === lightToggle) {
-      localStorage.setItem('theme', 'light');
-      applyLightMode(darkIconEl, lightIconEl, htmlEl);
-    }
   });
 }
 
