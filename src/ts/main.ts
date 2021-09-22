@@ -7,6 +7,7 @@ import onClickCheckIcon from './event/onClick-check-icon';
 import onClickEditBtn from './event/onClick-edit-btn';
 import { initializeClassListActive, initializeImportantStarEls } from './initialize/initialize';
 import { makeWeeklyItem, makeWeeklyIteminnerHTML } from './template/makeTemplate';
+import onClickCancelBtn from './event/onClick-cancel-btn';
 
 function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
   const [monPlusIcon, tuePlusIcon, wedPlusIcon, thuPlusIcon, friPlusIcon]: Element[] =
@@ -45,21 +46,6 @@ function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
       completionBtn?.classList.add('active');
       editBtn?.classList.remove('active');
     }
-  });
-}
-
-function onClickCancelBtn(plusEl: Element): void {
-  const cancelBtnEl: Element | null = document.querySelector('.btn__cancel');
-  const plusDayItems: Element[] = document.querySelectorAll('.plus-day-item');
-  const plusImportantStarEls: Element[] = document.querySelectorAll('.important-item-star');
-  const titleInputEl = <HTMLInputElement>document.querySelector('.plus-title-input');
-  const timeInputEl = <HTMLInputElement>document.querySelector('#time-input');
-  cancelBtnEl?.addEventListener('click', () => {
-    plusEl.classList.remove('active');
-    initializeClassListActive(plusDayItems);
-    initializeImportantStarEls(plusImportantStarEls);
-    titleInputEl.value = '';
-    timeInputEl.value = '';
   });
 }
 
