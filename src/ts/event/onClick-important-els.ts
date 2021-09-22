@@ -1,6 +1,6 @@
 import hasClassListActive from '../has-classList-active';
 
-function checkOnClick(Els: Element[], target: Element) {
+function checkOnClick(Els: NodeListOf<HTMLDivElement>, target: EventTarget): boolean {
   let bool = false;
   Els.forEach(El => {
     if (target === El) {
@@ -10,7 +10,7 @@ function checkOnClick(Els: Element[], target: Element) {
   return bool;
 }
 
-function addClassListActive(targetEls: Element[], anotherEls: Element[]): void {
+function addClassListActive(targetEls: NodeListOf<HTMLDivElement>, anotherEls: HTMLDivElement[]): void {
   const [checkBoolean, checkEls]: [boolean, Element[]] = hasClassListActive(anotherEls);
   targetEls.forEach(targetEl => {
     if (!checkBoolean) {
@@ -25,15 +25,15 @@ function addClassListActive(targetEls: Element[], anotherEls: Element[]): void {
 }
 
 export default function onClickImportantEls(plusEl: Element): void {
-  const importantEls1 = document.querySelectorAll('.plus-important-1');
-  const importantEls2 = document.querySelectorAll('.plus-important-2');
-  const importantEls3 = document.querySelectorAll('.plus-important-3');
+  const importantEls1: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.plus-important-1');
+  const importantEls2: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.plus-important-2');
+  const importantEls3: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.plus-important-3');
   plusEl.addEventListener('click', event => {
-    if (checkOnClick(importantEls1, event.target)) {
+    if (event.target && checkOnClick(importantEls1, event.target)) {
       addClassListActive(importantEls1, [...importantEls2, ...importantEls3]);
-    } else if (checkOnClick(importantEls2, event.target)) {
+    } else if (event.target && checkOnClick(importantEls2, event.target)) {
       addClassListActive(importantEls2, [...importantEls1, ...importantEls3]);
-    } else if (checkOnClick(importantEls3, event.target)) {
+    } else if (event.target && checkOnClick(importantEls3, event.target)) {
       addClassListActive(importantEls3, [...importantEls1, ...importantEls2]);
     }
   });
