@@ -158,7 +158,26 @@ function onClickImportantEls(plusEl: Element): void {
   });
 }
 
-function makeTemplate(
+function makeWeeklyIteminnerHTML(id: string, title: string, time: string, count: string): string {
+  const importantDiv = `<div class="material-icons item-star weekly-item-important" data-importantid=${id}>star_rate</div>`;
+  const template = `
+  <h3 class="weekly-item-title" data-titleid=${id}>${title}</h3>
+  <div class="weekly-item-box">
+    <p class="weekly-item-time" data-timeid=${id}>${time}</p>
+    <div class="weekly-item-stars" data-starsid=${id}>
+      ${importantDiv.repeat(Number(count))}
+    </div>
+  </div>
+  <div class="weekly-icons">
+    <div class="material-icons weekly-icon edit-icon" data-editid=${id}>drive_file_rename_outline</div>
+    <div class="material-icons weekly-icon check-icon" data-checkid=${id}>check_circle_outline</div>
+    <div class="material-icons weekly-icon delete-icon" data-deleteid=${id}>delete_outline</div>
+  </div>
+`;
+  return template;
+}
+
+function makeWeeklyItem(
   userTitleInput: string,
   userTimeInput: string,
   userDayInput: string,
@@ -171,22 +190,10 @@ function makeTemplate(
   weeklyItemEl.setAttribute('class', 'weekly-item');
   weeklyItemEl.setAttribute('data-itemid', String(randomId));
   weeklyItemEl.setAttribute('draggable', 'true');
-  const importantDiv = `<div class="material-icons item-star weekly-item-important" data-importantid=${randomId}>star_rate</div>`;
-  const template = `
-  <h3 class="weekly-item-title" data-titleid=${randomId}>${userTitleInput}</h3>
-  <div class="weekly-item-box">
-    <p class="weekly-item-time" data-timeid=${randomId}>${userTimeInput}</p>
-    <div class="weekly-item-stars" data-starsid=${randomId}>
-      ${importantDiv.repeat(userImportantInput)}
-    </div>
-  </div>
-  <div class="weekly-icons">
-    <div class="material-icons weekly-icon edit-icon" data-editid=${randomId}>drive_file_rename_outline</div>
-    <div class="material-icons weekly-icon check-icon" data-checkid=${randomId}>check_circle_outline</div>
-    <div class="material-icons weekly-icon delete-icon" data-deleteid=${randomId}>delete_outline</div>
-  </div>
-`;
+
+  const template: string = makeWeeklyIteminnerHTML(String(randomId), userTitleInput, userTimeInput, userImportantInput);
   weeklyItemEl.innerHTML = template;
+
   const weeklyContainerEls: Elemnet[] = document.querySelectorAll('.weekly-container');
   weeklyContainerEls.forEach(weeklyContainerEl => {
     if (weeklyContainerEl.dataset.weekly === userDayInput) {
@@ -225,7 +232,7 @@ function targetCheck(
   } else if (userTimeInput === '') {
     alert('Enter the time');
   } else {
-    makeTemplate(userTitleInput, userTimeInput, userDayInput, userImportantInput);
+    makeWeeklyItem(userTitleInput, userTimeInput, userDayInput, userImportantInput);
     plusEl.classList.remove('active');
     initializeClassListActive(plusDayEls);
     initializeImportantStarEls(plusImportantStarEls);
@@ -396,22 +403,17 @@ function onClickEditBtn(plusEl: Element): void {
       const editWeeklyItemEl: Element = document.querySelector(`.weekly-item[data-itemid="${currentId}"]`);
 
       if (currentDay === currentPlusDayItemText) {
-        const importantDiv = `<div class="material-icons item-star weekly-item-important" data-importantid=${currentId}>star_rate</div>`;
-        const template = `
-        <h3 class="weekly-item-title" data-titleid=${currentId}>${currentPlusTitleInput}</h3>
-        <div class="weekly-item-box">
-          <p class="weekly-item-time" data-timeid=${currentId}>${currentPlusTimeInput}</p>
-          <div class="weekly-item-stars" data-starsid=${currentId}>
-            ${importantDiv.repeat(Number(currentPlusImportantStarCount))}
-          </div>
-        </div>
-        <div class="weekly-icons">
-          <div class="material-icons weekly-icon edit-icon" data-editid=${currentId}>drive_file_rename_outline</div>
-          <div class="material-icons weekly-icon check-icon" data-checkid=${currentId}>check_circle_outline</div>
-          <div class="material-icons weekly-icon delete-icon" data-deleteid=${currentId}>delete_outline</div>
-        </div>
-      `;
+        const template: string = makeWeeklyIteminnerHTML(
+          currentId,
+          currentPlusTitleInput,
+          currentPlusTimeInput,
+          currentPlusDayItemText,
+          currentPlusImportantStarCount,
+        );
         editWeeklyItemEl.innerHTML = template;
+
+        const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+        dayList.forEach(day => setTodoCount(day));
 
         let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
         todoList?.forEach(todo => {
@@ -422,13 +424,16 @@ function onClickEditBtn(plusEl: Element): void {
         localStorage.setItem('todo-list', JSON.stringify(todoList));
       } else {
         const weeklyItemEl: Element = document.querySelector(`.weekly-item[data-itemid="${currentId}"]`);
-        makeTemplate(
+        makeWeeklyItem(
           currentPlusTitleInput,
           currentPlusTimeInput,
           currentPlusDayItemText,
           currentPlusImportantStarCount,
         );
         weeklyItemEl.remove();
+
+        const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+        dayList.forEach(day => setTodoCount(day));
 
         let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
 
