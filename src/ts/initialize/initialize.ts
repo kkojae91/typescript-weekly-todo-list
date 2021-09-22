@@ -6,7 +6,7 @@ export function initializeClassListActive(Els: Element[]): void {
   });
 }
 
-export function initializeImportantStarEls(plusImportantStarEls: Element[]) {
+export function initializeImportantStarEls(plusImportantStarEls: Element[]): void {
   plusImportantStarEls.forEach(plusImportantStarEl => {
     if (plusImportantStarEl.dataset.important === '1') {
       plusImportantStarEl.classList.add('active');
