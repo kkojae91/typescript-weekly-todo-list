@@ -1,6 +1,6 @@
-export default function hasClassListActive(Els: Element[]): [boolean, Element] {
+export default function hasClassListActive(Els: HTMLDivElement[]): [boolean, HTMLDivElement[]] {
   let bool = false;
-  let trueEls: Element[] = [];
+  let trueEls: HTMLDivElement[] = [];
   Els.forEach(El => {
     if (El.classList.contains('active')) {
       bool = true;
