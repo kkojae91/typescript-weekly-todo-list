@@ -5,14 +5,7 @@ import importPreviousRecord from './import-previous-record';
 import onClickDarkAndLightModeIcon from './project-theme';
 import onClickCheckIcon from './event/onClick-check-icon';
 import onClickEditBtn from './event/onClick-edit-btn';
-
-function initializeClassListActive(Els: Element[]): void {
-  Els.forEach(El => {
-    if (El.classList.contains('active')) {
-      El.classList.remove('active');
-    }
-  });
-}
+import { initializeClassListActive, initializeImportantStarEls } from './initialize/initialize';
 
 function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
   const [monPlusIcon, tuePlusIcon, wedPlusIcon, thuPlusIcon, friPlusIcon]: Element[] =
@@ -50,16 +43,6 @@ function onClickPlusBtn(weeklyEl: Element, plusEl: Element): void {
       fridayItemEl.classList.add('active');
       completionBtn?.classList.add('active');
       editBtn?.classList.remove('active');
-    }
-  });
-}
-
-function initializeImportantStarEls(plusImportantStarEls: Element[]) {
-  plusImportantStarEls.forEach(plusImportantStarEl => {
-    if (plusImportantStarEl.dataset.important === '1') {
-      plusImportantStarEl.classList.add('active');
-    } else {
-      plusImportantStarEl.classList.remove('active');
     }
   });
 }
