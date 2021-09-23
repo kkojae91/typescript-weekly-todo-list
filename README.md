@@ -40,7 +40,8 @@
   <img width="1775" alt="블랙투두추가" src="https://user-images.githubusercontent.com/68001045/134461797-9086276f-2a77-43c4-9c03-a64a8864824a.png">
 
 - drag and drop (Light-mode)
-  <img width="1792" alt="화이트드래그앤드롭" src="https://user-images.githubusercontent.com/68001045/134461803-33734ca7-1808-4ea8-80a1-bc9abe596497.png">
+  <img width="1772" alt="화이트드래그앤드롭" src="https://user-images.githubusercontent.com/68001045/134462421-94ef9516-885a-4be1-9e64-0a814dd2dca3.png">
+  >
 
 ## 프로젝트 Mobile 화면
 
