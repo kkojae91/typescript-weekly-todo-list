@@ -46,7 +46,9 @@
 ## 프로젝트 Mobile 화면
 
 - 메인 화면 (Light-mode)
+
   <img width="377" alt="화이트핸드폰메인화면" src="https://user-images.githubusercontent.com/68001045/134461802-e15ab7c6-ed7e-40e5-ba5f-7c15776ef66f.png">
 
 - todo-list 추가 (Dark-mode)
+
   <img width="379" alt="블랙핸드폰투두추가" src="https://user-images.githubusercontent.com/68001045/134461801-8d8145b0-33d3-4fef-9875-668ed004458e.png">
