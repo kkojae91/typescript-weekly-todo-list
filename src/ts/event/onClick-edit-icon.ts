@@ -1,19 +1,27 @@
 import getDayOfEdit from '../get-day-of-edit';
 
-function getEditEls() {
-  const itemEls = document.querySelectorAll('.weekly-item');
-  const titleEls = document.querySelectorAll('.weekly-item-title');
-  const timeEls = document.querySelectorAll('.weekly-item-time');
-  const importantEls = document.querySelectorAll('.weekly-item-important');
+function getEditEls(): [
+  NodeListOf<HTMLDivElement>,
+  NodeListOf<HTMLHeadingElement>,
+  NodeListOf<HTMLParagraphElement>,
+  NodeListOf<HTMLDivElement>,
+] {
+  const itemEls: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.weekly-item');
+  const titleEls: NodeListOf<HTMLHeadingElement> = document.querySelectorAll<HTMLHeadingElement>('.weekly-item-title');
+  const timeEls: NodeListOf<HTMLParagraphElement> =
+    document.querySelectorAll<HTMLParagraphElement>('.weekly-item-time');
+  const importantEls: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.weekly-item-important');
   return [itemEls, titleEls, timeEls, importantEls];
 }
 
 function editPlusSection(targetDay: string, targetTitle: string, targetTime: string, targetImportantCount: string) {
-  const plusEl: Element | null = document.querySelector('.plus-section');
-  const plusTitleInput: Element | null = document.querySelector('.plus-title-input');
-  const plusTimeInput: Element | null = document.querySelector('#time-input');
-  const plusDayItemEls: Element[] = document.querySelectorAll('.plus-day-item');
-  const plusImportantStarEls: Element[] = document.querySelectorAll('.important-item-star');
+  const plusEl: HTMLTableSectionElement | null = document.querySelector('.plus-section');
+  const plusTitleInput: HTMLInputElement | null = document.querySelector('.plus-title-input');
+  const plusTimeInput: HTMLInputElement | null = document.querySelector('#time-input');
+  const plusDayItemEls: NodeListOf<HTMLHeadingElement> =
+    document.querySelectorAll<HTMLHeadingElement>('.plus-day-item');
+  const plusImportantStarEls: NodeListOf<HTMLDivElement> =
+    document.querySelectorAll<HTMLDivElement>('.important-item-star');
   plusEl?.classList.add('active');
   if (plusTitleInput) {
     plusTitleInput.value = targetTitle;
@@ -40,7 +48,7 @@ function editPlusSection(targetDay: string, targetTitle: string, targetTime: str
   });
 }
 
-function compareTargetAndEditEl(editEl: Element) {
+function compareTargetAndEditEl(editEl: HTMLDivElement) {
   let targetDay = '';
   let targetTitle = '';
   let targetTime = '';
@@ -49,9 +57,12 @@ function compareTargetAndEditEl(editEl: Element) {
 
   itemEls.forEach(itemEl => {
     if (editEl.dataset.editid === itemEl.dataset.itemid) {
-      targetDay = getDayOfEdit(itemEl);
+      const getDay = getDayOfEdit(itemEl);
+      if (getDay) {
+        targetDay = getDay;
+      }
       const storageId = editEl.dataset.editid;
-      localStorage.setItem('currentId', storageId);
+      storageId && localStorage.setItem('currentId', storageId);
       localStorage.setItem('currentDay', targetDay);
     }
   });
@@ -83,11 +94,11 @@ function compareTargetAndEditEl(editEl: Element) {
 
 export default function onClickEditIcon(weeklyEl: Element) {
   weeklyEl.addEventListener('click', event => {
-    const editEls: Element[] = document.querySelectorAll('.edit-icon');
-    const completionBtn: Element = document.querySelector('.btn__completion');
-    const editBtn: Element = document.querySelector('.btn__edit');
+    const editEls: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.edit-icon');
+    const completionBtn: HTMLDivElement | null = document.querySelector('.btn__completion');
+    const editBtn: HTMLDivElement | null = document.querySelector('.btn__edit');
     editEls.forEach(editEl => {
-      if (event.target === editEl) {
+      if (event.target === editEl && completionBtn && editBtn) {
         compareTargetAndEditEl(editEl);
         completionBtn.classList.remove('active');
         editBtn.classList.add('active');
