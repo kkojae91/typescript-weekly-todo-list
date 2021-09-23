@@ -23,3 +23,4 @@
 - TypeScript로 타입 관리
 - JavaScript로 dark 모드, stroage, drag&drop 구현
 - dataset 활용 방법 숙지
+- 중복 코드 최소화
