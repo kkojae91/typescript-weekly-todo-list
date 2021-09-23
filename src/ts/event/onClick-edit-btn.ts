@@ -59,6 +59,7 @@ export default function onClickEditBtn(plusEl: Element): void {
         if (todoListWithString) {
           todoList = JSON.parse(todoListWithString);
         }
+
         todoList?.forEach(todo => {
           if (String(todo.randomId) === currentId) {
             todo.template = template;
