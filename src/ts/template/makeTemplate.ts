@@ -1,5 +1,12 @@
 import setTodoCount from '../set-todo-count';
 
+interface ItodoList {
+  randomId: number;
+  day: string;
+  template: string;
+  isActive: boolean;
+}
+
 export function makeWeeklyIteminnerHTML(id: string, title: string, time: string, count: string): string {
   const importantDiv = `<div class="material-icons item-star weekly-item-important" data-importantid=${id}>star_rate</div>`;
   const template = `
@@ -36,22 +43,29 @@ export function makeWeeklyItem(
   const template: string = makeWeeklyIteminnerHTML(String(randomId), userTitleInput, userTimeInput, userImportantInput);
   weeklyItemEl.innerHTML = template;
 
-  const weeklyContainerEls: Elemnet[] = document.querySelectorAll('.weekly-container');
+  const weeklyContainerEls: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.weekly-container');
   weeklyContainerEls.forEach(weeklyContainerEl => {
     if (weeklyContainerEl.dataset.weekly === userDayInput) {
-      weeklyContainerEl.lastChild.previousSibling.appendChild(weeklyItemEl);
+      weeklyContainerEl?.lastChild?.previousSibling?.appendChild(weeklyItemEl);
     }
   });
   const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
   dayList.forEach(day => setTodoCount(day));
-  const newTodoList = {
+
+  const newTodoList: ItodoList = {
     randomId,
     day: userDayInput,
     template,
     isActive: false,
   };
 
-  let todoList: [] | null = JSON.parse(localStorage.getItem('todo-list'));
+  const todoListWithString: string | null = localStorage.getItem('todo-list');
+  let todoList: ItodoList[] | null = null;
+  if (todoListWithString) {
+    todoList = JSON.parse(todoListWithString);
+  }
+
   todoList ? todoList.push(newTodoList) : (todoList = [newTodoList]);
+
   localStorage.setItem('todo-list', JSON.stringify(todoList));
 }
