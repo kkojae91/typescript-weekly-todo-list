@@ -1,4 +1,4 @@
-import importPreviousRecord from './import-previous-record';
+import ImportPreviousRecord from './import-previous-record';
 import onClickDarkAndLightModeIcon from './project-theme';
 import {
   onClickCancelBtn,
@@ -39,7 +39,10 @@ function main(): void {
     onClickDarkAndLightModeIcon(toggleEl);
   }
 
-  importPreviousRecord();
+  const importPreviousRecord = new ImportPreviousRecord();
+  importPreviousRecord.setPreviousRecordArray();
+  importPreviousRecord.setPreviousRecord();
+  // importPreviousRecord();
 }
 
 main();
