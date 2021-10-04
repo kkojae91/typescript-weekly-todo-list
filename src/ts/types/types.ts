@@ -26,3 +26,8 @@ export interface IOnClickDarkAndLightModeIcon {
 export interface IHasClassListActive {
   checkClassList(): [boolean, HTMLDivElement[]];
 }
+
+// get day of edit 관련 type
+export interface IGetDayOfEdit {
+  getDay(): string;
+}

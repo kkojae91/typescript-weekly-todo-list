@@ -1,4 +1,4 @@
-import getDayOfEdit from '../get-day-of-edit';
+import GetDayOfEdit from '../get-day-of-edit';
 
 function getEditEls(): [
   NodeListOf<HTMLDivElement>,
@@ -57,7 +57,7 @@ function compareTargetAndEditEl(editEl: HTMLDivElement) {
 
   itemEls.forEach(itemEl => {
     if (editEl.dataset.editid === itemEl.dataset.itemid) {
-      const getDay = getDayOfEdit(itemEl);
+      const getDay = new GetDayOfEdit(itemEl).getDay();
       if (getDay) {
         targetDay = getDay;
       }

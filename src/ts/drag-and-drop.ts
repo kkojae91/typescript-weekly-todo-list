@@ -1,5 +1,5 @@
 import SetTodoCount from './set-todo-count';
-import getDayOfEdit from './get-day-of-edit';
+import GetDayOfEdit from './get-day-of-edit';
 
 interface ItodoList {
   randomId: number;
@@ -64,7 +64,7 @@ export default function dragAndDrop(): void {
 
         let currentDay: string;
         if (draggedItem) {
-          const getDay = getDayOfEdit(draggedItem);
+          const getDay = new GetDayOfEdit(draggedItem).getDay();
           if (getDay) {
             currentDay = getDay;
           }
