@@ -1,4 +1,4 @@
-import { initializeClassListActive, initializeImportantStarEls } from '../initialize/initialize';
+import Initialize from '../initialize/initialize';
 
 export default function onClickCancelBtn(plusEl: HTMLTableSectionElement): void {
   const cancelBtnEl: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.btn__cancel');
@@ -9,8 +9,11 @@ export default function onClickCancelBtn(plusEl: HTMLTableSectionElement): void 
   const timeInputEl: HTMLInputElement | null = document.querySelector<HTMLInputElement>('#time-input');
   cancelBtnEl?.addEventListener('click', () => {
     plusEl.classList.remove('active');
-    initializeClassListActive(plusDayItems);
-    initializeImportantStarEls(plusImportantStarEls);
+
+    const initialize = new Initialize();
+    initialize.initializeClassListActive(plusDayItems);
+    initialize.initializeImportantStarEls(plusImportantStarEls);
+
     if (titleInputEl && timeInputEl) {
       titleInputEl.value = '';
       timeInputEl.value = '';

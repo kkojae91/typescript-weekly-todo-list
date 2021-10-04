@@ -1,5 +1,5 @@
 import SetTodoCount from '../set-todo-count';
-import { initializeClassListActive, initializeImportantStarEls } from '../initialize/initialize';
+import Initialize from '../initialize/initialize';
 import { MakeWeeklyItem, MakeWeeklyIteminnerHTML } from '../template/makeTemplate';
 
 interface ItodoList {
@@ -93,8 +93,10 @@ export default function onClickEditBtn(plusEl: Element): void {
       editBtn?.classList.add('active');
       plusEl?.classList.remove('active');
 
-      initializeClassListActive(plusDayEls);
-      initializeImportantStarEls(plusImportantStarEls);
+      const initialize = new Initialize();
+      initialize.initializeClassListActive(plusDayEls);
+      initialize.initializeImportantStarEls(plusImportantStarEls);
+
       if (currentPlusTitleEl && currentPlusTimeEl) {
         currentPlusTitleEl.value = '';
         currentPlusTimeEl.value = '';

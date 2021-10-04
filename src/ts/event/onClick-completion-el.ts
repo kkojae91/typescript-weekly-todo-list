@@ -1,6 +1,6 @@
 import dragAndDrop from '../drag-and-drop';
 import { MakeWeeklyItem } from '../template/makeTemplate';
-import { initializeClassListActive, initializeImportantStarEls } from '../initialize/initialize';
+import Initialize from '../initialize/initialize';
 
 function targetCheck(
   plusEl: HTMLTableSectionElement,
@@ -24,8 +24,9 @@ function targetCheck(
       new MakeWeeklyItem(userTitleInput, userTimeInput, userDayInput, userImportantInput).makeWeeklyItem();
     }
     plusEl.classList.remove('active');
-    initializeClassListActive(plusDayEls);
-    initializeImportantStarEls(plusImportantStarEls);
+    const initialize = new Initialize();
+    initialize.initializeClassListActive(plusDayEls);
+    initialize.initializeImportantStarEls(plusImportantStarEls);
     titleInputEl.value = '';
     timeInputEl.value = '';
   }

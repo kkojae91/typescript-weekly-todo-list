@@ -40,3 +40,9 @@ export interface IHasClassListActive {
 export interface IGetDayOfEdit {
   getDay(): string;
 }
+
+// initialize 관련 type
+export interface IInitialize {
+  initializeClassListActive(Els: NodeListOf<HTMLDivElement>): void;
+  initializeImportantStarEls(plusImportantStarEls: NodeListOf<HTMLDivElement>): void;
+}
