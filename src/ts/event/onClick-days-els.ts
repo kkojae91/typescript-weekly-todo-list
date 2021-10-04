@@ -1,7 +1,7 @@
-import hasClassListActive from '../has-classList-active';
+import HasClassListActive from '../has-classList-active';
 
 function checkEls(defaultEl: HTMLDivElement, anotherEls: HTMLDivElement[]): void {
-  const [checkBoolean, checkEls]: [boolean, HTMLDivElement[]] = hasClassListActive(anotherEls);
+  const [checkBoolean, checkEls]: [boolean, HTMLDivElement[]] = new HasClassListActive(anotherEls).checkClassList();
   if (!checkBoolean) {
     defaultEl.classList.add('active');
   } else {

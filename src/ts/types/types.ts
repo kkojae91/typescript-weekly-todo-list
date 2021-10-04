@@ -21,3 +21,8 @@ export interface IOnClickDarkAndLightModeIcon {
   previousProjectThemeCheck(): void;
   onClickToggle(): void;
 }
+
+// class list active check 관련 type
+export interface IHasClassListActive {
+  checkClassList(): [boolean, HTMLDivElement[]];
+}

@@ -1,11 +1,18 @@
-export default function hasClassListActive(Els: HTMLDivElement[]): [boolean, HTMLDivElement[]] {
-  let bool = false;
-  let trueEls: HTMLDivElement[] = [];
-  Els.forEach(El => {
-    if (El.classList.contains('active')) {
-      bool = true;
-      trueEls.push(El);
-    }
-  });
-  return [bool, trueEls];
+import { IHasClassListActive } from './types/types';
+
+export default class HasClassListActive implements IHasClassListActive {
+  private _bool: boolean = false;
+  private _trueEls: HTMLDivElement[] = [];
+
+  constructor(private _Els: HTMLDivElement[]) {}
+
+  public checkClassList(): [boolean, HTMLDivElement[]] {
+    this._Els.forEach(El => {
+      if (El.classList.contains('active')) {
+        this._bool = true;
+        this._trueEls.push(El);
+      }
+    });
+    return [this._bool, this._trueEls];
+  }
 }

@@ -1,4 +1,4 @@
-import hasClassListActive from '../has-classList-active';
+import HasClassListActive from '../has-classList-active';
 
 function checkOnClick(Els: NodeListOf<HTMLDivElement>, target: EventTarget): boolean {
   let bool = false;
@@ -11,7 +11,7 @@ function checkOnClick(Els: NodeListOf<HTMLDivElement>, target: EventTarget): boo
 }
 
 function addClassListActive(targetEls: NodeListOf<HTMLDivElement>, anotherEls: HTMLDivElement[]): void {
-  const [checkBoolean, checkEls]: [boolean, Element[]] = hasClassListActive(anotherEls);
+  const [checkBoolean, checkEls]: [boolean, Element[]] = new HasClassListActive(anotherEls).checkClassList();
   targetEls.forEach(targetEl => {
     if (!checkBoolean) {
       targetEl.classList.add('active');
