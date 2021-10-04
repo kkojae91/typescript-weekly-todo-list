@@ -1,5 +1,5 @@
-// previous-record 관련 type
-export interface IpreviousRecord {
+// previous-record 관련 type, make template 관련 type
+export interface ITodoList {
   randomId: number;
   day: string;
   template: string;
@@ -9,6 +9,15 @@ export interface IpreviousRecord {
 export interface IImportPreviousRecord {
   setPreviousRecordArray(): void;
   setPreviousRecord(): void;
+}
+
+// make template 관련 type
+export interface IMakeWeeklyIteminnerHTML {
+  makeInnerHTML(): string;
+}
+
+export interface IMakeWeeklyItem {
+  makeWeeklyItem(): void;
 }
 
 // todo count 관련 type

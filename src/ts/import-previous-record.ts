@@ -1,10 +1,10 @@
 import SetTodoCount from './set-todo-count';
 import dragAndDrop from './drag-and-drop';
-import { IpreviousRecord, IImportPreviousRecord } from './types/types';
+import { ITodoList, IImportPreviousRecord } from './types/types';
 
 export default class ImportPreviousRecord implements IImportPreviousRecord {
   private _todoListWithString: string | null = localStorage.getItem('todo-list');
-  private _previousRecord: IpreviousRecord[] = [];
+  private _previousRecord: ITodoList[] = [];
 
   constructor() {}
 

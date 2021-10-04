@@ -1,5 +1,5 @@
 import dragAndDrop from '../drag-and-drop';
-import { makeWeeklyItem } from '../template/makeTemplate';
+import { MakeWeeklyItem } from '../template/makeTemplate';
 import { initializeClassListActive, initializeImportantStarEls } from '../initialize/initialize';
 
 function targetCheck(
@@ -21,7 +21,7 @@ function targetCheck(
     alert('Enter the time');
   } else {
     if (userDayInput && userImportantInput) {
-      makeWeeklyItem(userTitleInput, userTimeInput, userDayInput, userImportantInput);
+      new MakeWeeklyItem(userTitleInput, userTimeInput, userDayInput, userImportantInput).makeWeeklyItem();
     }
     plusEl.classList.remove('active');
     initializeClassListActive(plusDayEls);

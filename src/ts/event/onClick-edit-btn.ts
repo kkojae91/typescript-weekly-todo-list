@@ -1,6 +1,6 @@
 import SetTodoCount from '../set-todo-count';
 import { initializeClassListActive, initializeImportantStarEls } from '../initialize/initialize';
-import { makeWeeklyItem, makeWeeklyIteminnerHTML } from '../template/makeTemplate';
+import { MakeWeeklyItem, MakeWeeklyIteminnerHTML } from '../template/makeTemplate';
 
 interface ItodoList {
   randomId: number;
@@ -40,12 +40,12 @@ export default function onClickEditBtn(plusEl: Element): void {
         currentPlusTimeInput &&
         currentPlusImportantStarCount
       ) {
-        const template: string = makeWeeklyIteminnerHTML(
+        const template: string = new MakeWeeklyIteminnerHTML(
           currentId,
           currentPlusTitleInput,
           currentPlusTimeInput,
           currentPlusImportantStarCount,
-        );
+        ).makeInnerHTML();
 
         if (editWeeklyItemEl) {
           editWeeklyItemEl.innerHTML = template;
@@ -68,12 +68,12 @@ export default function onClickEditBtn(plusEl: Element): void {
       } else {
         const weeklyItemEl: HTMLDivElement | null = document.querySelector(`.weekly-item[data-itemid="${currentId}"]`);
         if (currentPlusTitleInput && currentPlusTimeInput && currentPlusDayItemText && currentPlusImportantStarCount) {
-          makeWeeklyItem(
+          new MakeWeeklyItem(
             currentPlusTitleInput,
             currentPlusTimeInput,
             currentPlusDayItemText,
             currentPlusImportantStarCount,
-          );
+          ).makeWeeklyItem();
         }
 
         weeklyItemEl?.remove();
