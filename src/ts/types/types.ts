@@ -15,3 +15,9 @@ export interface IImportPreviousRecord {
 export interface ISetTodoCount {
   countTodoList(): void;
 }
+
+// project theme 관련 type
+export interface IOnClickDarkAndLightModeIcon {
+  previousProjectThemeCheck(): void;
+  onClickToggle(): void;
+}

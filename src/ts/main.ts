@@ -1,5 +1,5 @@
 import ImportPreviousRecord from './import-previous-record';
-import onClickDarkAndLightModeIcon from './project-theme';
+import OnClickDarkAndLightModeIcon from './project-theme';
 import {
   onClickCancelBtn,
   onClickCheckIcon,
@@ -13,9 +13,9 @@ import {
 } from './event/index';
 
 function main(): void {
-  const weeklyEl: Element | null = document.querySelector('.weekly-section');
-  const plusEl: Element | null = document.querySelector('.plus-section');
-  const toggleEl: Element | null = document.querySelector('.toggle-section');
+  const weeklyEl: HTMLTableSectionElement | null = document.querySelector('.weekly-section');
+  const plusEl: HTMLTableSectionElement | null = document.querySelector('.plus-section');
+  const toggleEl: HTMLDivElement | null = document.querySelector('.toggle-section');
 
   if (weeklyEl && plusEl) {
     onClickPlusBtn(weeklyEl, plusEl);
@@ -36,7 +36,9 @@ function main(): void {
   }
 
   if (toggleEl) {
-    onClickDarkAndLightModeIcon(toggleEl);
+    const projectTheme = new OnClickDarkAndLightModeIcon(toggleEl);
+    projectTheme.previousProjectThemeCheck();
+    projectTheme.onClickToggle();
   }
 
   const importPreviousRecord = new ImportPreviousRecord();
