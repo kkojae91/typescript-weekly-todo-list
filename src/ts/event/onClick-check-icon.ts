@@ -1,4 +1,4 @@
-import setTodoCount from '../set-todo-count';
+import SetTodoCount from '../set-todo-count';
 
 interface ItodoList {
   randomId: number;
@@ -54,7 +54,7 @@ export default function onClickCheckIcon(weeklyEl: HTMLTableSectionElement): voi
         const currentDay: string | null | undefined =
           currentWeeklyItemEl?.parentElement?.previousElementSibling?.firstElementChild?.firstElementChild?.textContent;
 
-        currentDay && setTodoCount(currentDay);
+        currentDay && new SetTodoCount().countTodoList();
       }
     });
   });

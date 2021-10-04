@@ -1,4 +1,4 @@
-import setTodoCount from '../set-todo-count';
+import SetTodoCount from '../set-todo-count';
 
 interface ItodoList {
   randomId: number;
@@ -49,8 +49,8 @@ export function makeWeeklyItem(
       weeklyContainerEl?.lastChild?.previousSibling?.appendChild(weeklyItemEl);
     }
   });
-  const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-  dayList.forEach(day => setTodoCount(day));
+
+  new SetTodoCount().countTodoList();
 
   const newTodoList: ItodoList = {
     randomId,

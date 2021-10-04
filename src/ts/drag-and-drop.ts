@@ -1,4 +1,4 @@
-import setTodoCount from './set-todo-count';
+import SetTodoCount from './set-todo-count';
 import getDayOfEdit from './get-day-of-edit';
 
 interface ItodoList {
@@ -89,8 +89,7 @@ export default function dragAndDrop(): void {
         });
         localStorage.setItem('todo-list', JSON.stringify(todoList));
 
-        const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-        dayList.forEach(day => setTodoCount(day));
+        new SetTodoCount().countTodoList();
       });
     }
   }

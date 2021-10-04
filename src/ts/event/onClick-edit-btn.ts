@@ -1,4 +1,4 @@
-import setTodoCount from '../set-todo-count';
+import SetTodoCount from '../set-todo-count';
 import { initializeClassListActive, initializeImportantStarEls } from '../initialize/initialize';
 import { makeWeeklyItem, makeWeeklyIteminnerHTML } from '../template/makeTemplate';
 
@@ -51,8 +51,7 @@ export default function onClickEditBtn(plusEl: Element): void {
           editWeeklyItemEl.innerHTML = template;
         }
 
-        const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-        dayList.forEach(day => setTodoCount(day));
+        new SetTodoCount().countTodoList();
 
         const todoListWithString: string | null = localStorage.getItem('todo-list');
         let todoList: ItodoList[] | null = null;
@@ -79,8 +78,7 @@ export default function onClickEditBtn(plusEl: Element): void {
 
         weeklyItemEl?.remove();
 
-        const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-        dayList.forEach(day => setTodoCount(day));
+        new SetTodoCount().countTodoList();
 
         const todoListWithString: string | null = localStorage.getItem('todo-list');
         let todoList: ItodoList[] | null | undefined = null;

@@ -42,7 +42,6 @@ function main(): void {
   const importPreviousRecord = new ImportPreviousRecord();
   importPreviousRecord.setPreviousRecordArray();
   importPreviousRecord.setPreviousRecord();
-  // importPreviousRecord();
 }
 
 main();

@@ -1,4 +1,4 @@
-import setTodoCount from './set-todo-count';
+import SetTodoCount from './set-todo-count';
 import dragAndDrop from './drag-and-drop';
 import { IpreviousRecord, IImportPreviousRecord } from './types/types';
 
@@ -48,8 +48,7 @@ export default class ImportPreviousRecord implements IImportPreviousRecord {
         const [day, weeklyItemEl] = this.createPreviousInfo(i);
         this.appendWeeklyItemElToWeeklyContainerEls(day, weeklyItemEl);
 
-        const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-        dayList.forEach(day => setTodoCount(day));
+        new SetTodoCount().countTodoList();
       }
     }
     dragAndDrop();

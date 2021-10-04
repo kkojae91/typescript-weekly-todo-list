@@ -1,3 +1,4 @@
+// previous-record 관련 type
 export interface IpreviousRecord {
   randomId: number;
   day: string;
@@ -8,4 +9,9 @@ export interface IpreviousRecord {
 export interface IImportPreviousRecord {
   setPreviousRecordArray(): void;
   setPreviousRecord(): void;
+}
+
+// todo count 관련 type
+export interface ISetTodoCount {
+  countTodoList(): void;
 }

@@ -1,4 +1,4 @@
-import setTodoCount from '../set-todo-count';
+import SetTodoCount from '../set-todo-count';
 import dragAndDrop from '../drag-and-drop';
 
 interface ItodoList {
@@ -21,8 +21,7 @@ function compareDeleteIdAndItemId(deleteEl: HTMLDivElement, itemEl: HTMLDivEleme
     todoList = todoList?.filter(todo => String(todo.randomId) !== itemEl.dataset.itemid);
     localStorage.setItem('todo-list', JSON.stringify(todoList));
 
-    const dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-    dayList.forEach(day => setTodoCount(day));
+    new SetTodoCount().countTodoList();
   }
 }
 

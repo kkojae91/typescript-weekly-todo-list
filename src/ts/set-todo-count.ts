@@ -1,16 +1,22 @@
-export default function setTodoCount(day: string): void {
-  day = day.toLowerCase().slice(0, 3);
-  const itemLength: number = document.querySelectorAll(`.${day}-container .weekly-items .weekly-item`).length;
+import { ISetTodoCount } from './types/types';
 
-  const doneItemLength: number = document.querySelectorAll(
-    `.${day}-container .weekly-items .weekly-item.active`,
-  ).length;
+export default class SetTodoCount implements ISetTodoCount {
+  private dayList: string[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
+  constructor() {}
 
-  const todoCountEl: Element | null = document.querySelector(
-    `.${day}-container .weekly-container-header .weekly-todo-count`,
-  );
+  public countTodoList(): void {
+    this.dayList.forEach(day => {
+      const itemLength: number = document.querySelectorAll(`.${day}-container .weekly-items .weekly-item`).length;
+      const doneItemLength: number = document.querySelectorAll(
+        `.${day}-container .weekly-items .weekly-item.active`,
+      ).length;
+      const todoCountEl: HTMLParagraphElement | null = document.querySelector(
+        `.${day}-container .weekly-container-header .weekly-todo-count`,
+      );
 
-  if (todoCountEl) {
-    todoCountEl.textContent = String(itemLength - doneItemLength);
+      if (todoCountEl) {
+        todoCountEl.textContent = String(itemLength - doneItemLength);
+      }
+    });
   }
 }
