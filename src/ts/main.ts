@@ -12,6 +12,8 @@ import {
   OnClickPlusBtn,
 } from './event/index';
 
+import { OnClickDeleteBtn } from './event/onClick-delete-btn';
+
 function main(): void {
   const weeklyEl: HTMLTableSectionElement | null = document.querySelector('.weekly-section');
   const plusEl: HTMLTableSectionElement | null = document.querySelector('.plus-section');
@@ -22,7 +24,8 @@ function main(): void {
   }
 
   if (weeklyEl) {
-    onClickDeleteBtn(weeklyEl);
+    new OnClickDeleteBtn(weeklyEl).main();
+    // onClickDeleteBtn(weeklyEl);
     onClickEditIcon(weeklyEl);
     new OnClickCheckIcon(weeklyEl).main();
   }
@@ -30,7 +33,6 @@ function main(): void {
   if (plusEl) {
     new OnClickCancelBtn(plusEl).main();
     new OnClickDaysEls(plusEl).main();
-    // onClickDaysEls(plusEl);
     new OnClickImportantEls(plusEl).main();
     new OnClickCompletionEl(plusEl).main();
     onClickEditBtn(plusEl);
