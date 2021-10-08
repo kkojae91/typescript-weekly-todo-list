@@ -1,22 +1,28 @@
 import Initialize from '../initialize/initialize';
+import { IOnClickMain } from '../types/types';
 
-export default function onClickCancelBtn(plusEl: HTMLTableSectionElement): void {
-  const cancelBtnEl: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.btn__cancel');
-  const plusDayItems: NodeListOf<HTMLHeadingElement> = document.querySelectorAll<HTMLHeadingElement>('.plus-day-item');
-  const plusImportantStarEls: NodeListOf<HTMLDivElement> =
+export default class OnClickCancelBtn implements IOnClickMain {
+  private cancelBtnEl: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.btn__cancel');
+  private plusDayItems: NodeListOf<HTMLHeadingElement> =
+    document.querySelectorAll<HTMLHeadingElement>('.plus-day-item');
+  private plusImportantStarEls: NodeListOf<HTMLDivElement> =
     document.querySelectorAll<HTMLDivElement>('.important-item-star');
-  const titleInputEl: HTMLInputElement | null = document.querySelector<HTMLInputElement>('.plus-title-input');
-  const timeInputEl: HTMLInputElement | null = document.querySelector<HTMLInputElement>('#time-input');
-  cancelBtnEl?.addEventListener('click', () => {
-    plusEl.classList.remove('active');
+  private titleInputEl: HTMLInputElement | null = document.querySelector<HTMLInputElement>('.plus-title-input');
+  private timeInputEl: HTMLInputElement | null = document.querySelector<HTMLInputElement>('#time-input');
+  constructor(private plusEl: HTMLTableSectionElement) {}
 
-    const initialize = new Initialize();
-    initialize.initializeClassListActive(plusDayItems);
-    initialize.initializeImportantStarEls(plusImportantStarEls);
+  main(): void {
+    this.cancelBtnEl?.addEventListener('click', () => {
+      this.plusEl.classList.remove('active');
 
-    if (titleInputEl && timeInputEl) {
-      titleInputEl.value = '';
-      timeInputEl.value = '';
-    }
-  });
+      const initialize = new Initialize();
+      initialize.initializeClassListActive(this.plusDayItems);
+      initialize.initializeImportantStarEls(this.plusImportantStarEls);
+
+      if (this.titleInputEl && this.timeInputEl) {
+        this.titleInputEl.value = '';
+        this.timeInputEl.value = '';
+      }
+    });
+  }
 }

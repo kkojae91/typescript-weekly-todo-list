@@ -47,7 +47,7 @@ export interface IInitialize {
   initializeImportantStarEls(plusImportantStarEls: NodeListOf<HTMLDivElement>): void;
 }
 
-// onClick-plus-btn, onCLick-important-els 관련 type
+// onClick-plus-btn, onCLick-important-els, onClick-cancel-btn 관련 type
 export interface IOnClickMain {
   main(): void;
 }

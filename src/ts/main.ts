@@ -1,7 +1,7 @@
 import ImportPreviousRecord from './import-previous-record';
 import OnClickDarkAndLightModeIcon from './project-theme';
 import {
-  onClickCancelBtn,
+  OnClickCancelBtn,
   onClickCheckIcon,
   onClickCompletionEl,
   onClickDaysEls,
@@ -28,7 +28,7 @@ function main(): void {
   }
 
   if (plusEl) {
-    onClickCancelBtn(plusEl);
+    new OnClickCancelBtn(plusEl).main();
     onClickDaysEls(plusEl);
     new OnClickImportantEls(plusEl).main();
     onClickCompletionEl(plusEl);
