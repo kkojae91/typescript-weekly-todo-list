@@ -3,7 +3,7 @@ import OnClickDarkAndLightModeIcon from './project-theme';
 import {
   OnClickCancelBtn,
   OnClickCheckIcon,
-  onClickCompletionEl,
+  OnClickCompletionEl,
   onClickDaysEls,
   onClickDeleteBtn,
   onClickEditBtn,
@@ -31,7 +31,7 @@ function main(): void {
     new OnClickCancelBtn(plusEl).main();
     onClickDaysEls(plusEl);
     new OnClickImportantEls(plusEl).main();
-    onClickCompletionEl(plusEl);
+    new OnClickCompletionEl(plusEl).main();
     onClickEditBtn(plusEl);
   }
 

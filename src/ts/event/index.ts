@@ -6,4 +6,4 @@ export { default as onClickEditIcon } from './onClick-edit-icon';
 export { default as OnClickImportantEls } from './onClick-important-els';
 export { default as onClickDaysEls } from './onClick-days-els';
 export { default as OnClickPlusBtn } from './onClick-plus-btn';
-export { default as onClickCompletionEl } from './onClick-completion-el';
+export { default as OnClickCompletionEl } from './onClick-completion-el';
