@@ -46,3 +46,8 @@ export interface IInitialize {
   initializeClassListActive(Els: NodeListOf<HTMLDivElement>): void;
   initializeImportantStarEls(plusImportantStarEls: NodeListOf<HTMLDivElement>): void;
 }
+
+// onClick-plus-btn 관련 type
+export interface IOnClickPlusBtn {
+  main(): void;
+}

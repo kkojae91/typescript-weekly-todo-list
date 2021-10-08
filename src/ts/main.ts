@@ -9,7 +9,7 @@ import {
   onClickEditBtn,
   onClickEditIcon,
   onClickImportantEls,
-  onClickPlusBtn,
+  OnClickPlusBtn,
 } from './event/index';
 
 function main(): void {
@@ -18,7 +18,7 @@ function main(): void {
   const toggleEl: HTMLDivElement | null = document.querySelector('.toggle-section');
 
   if (weeklyEl && plusEl) {
-    onClickPlusBtn(weeklyEl, plusEl);
+    new OnClickPlusBtn(weeklyEl, plusEl).main();
   }
 
   if (weeklyEl) {
