@@ -2,7 +2,7 @@ import SetTodoCount from '../set-todo-count';
 import dragAndDrop from '../drag-and-drop';
 import { IOnClickMain, ITodoList } from '../types/types';
 
-export class OnClickDeleteBtn implements IOnClickMain {
+export default class OnClickDeleteBtn implements IOnClickMain {
   constructor(private weeklyEl: HTMLDivElement) {}
 
   private compareDeleteIdAndItemId(deleteEl: HTMLDivElement, itemEl: HTMLDivElement): void {

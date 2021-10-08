@@ -5,14 +5,12 @@ import {
   OnClickCheckIcon,
   OnClickCompletionEl,
   OnClickDaysEls,
-  onClickDeleteBtn,
+  OnClickDeleteBtn,
   onClickEditBtn,
   onClickEditIcon,
   OnClickImportantEls,
   OnClickPlusBtn,
 } from './event/index';
-
-import { OnClickDeleteBtn } from './event/onClick-delete-btn';
 
 function main(): void {
   const weeklyEl: HTMLTableSectionElement | null = document.querySelector('.weekly-section');
