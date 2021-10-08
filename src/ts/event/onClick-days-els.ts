@@ -1,30 +1,34 @@
 import HasClassListActive from '../has-classList-active';
+import { IOnClickMain } from '../types/types';
 
-function checkEls(defaultEl: HTMLDivElement, anotherEls: HTMLDivElement[]): void {
-  const [checkBoolean, checkEls]: [boolean, HTMLDivElement[]] = new HasClassListActive(anotherEls).checkClassList();
-  if (!checkBoolean) {
-    defaultEl.classList.add('active');
-  } else {
-    checkEls[0].classList.remove('active');
-    defaultEl.classList.add('active');
-  }
-}
+export default class OnClickDaysEls implements IOnClickMain {
+  dayItems: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.plus-day-item');
+  constructor(private plusEl: HTMLTableSectionElement) {}
 
-export default function onClickDaysEls(plusEl: Element): void {
-  const [mondayItemEl, tuesdayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl]: NodeListOf<HTMLDivElement> =
-    document.querySelectorAll<HTMLDivElement>('.plus-day-item');
-
-  plusEl.addEventListener('click', event => {
-    if (event.target === mondayItemEl) {
-      checkEls(mondayItemEl, [tuesdayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl]);
-    } else if (event.target === tuesdayItemEl) {
-      checkEls(tuesdayItemEl, [mondayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl]);
-    } else if (event.target === wednesdayItemEl) {
-      checkEls(wednesdayItemEl, [mondayItemEl, tuesdayItemEl, thursdayItemEl, fridayItemEl]);
-    } else if (event.target === thursdayItemEl) {
-      checkEls(thursdayItemEl, [mondayItemEl, tuesdayItemEl, wednesdayItemEl, fridayItemEl]);
-    } else if (event.target === fridayItemEl) {
-      checkEls(fridayItemEl, [mondayItemEl, tuesdayItemEl, thursdayItemEl, wednesdayItemEl]);
+  checkEls(defaultEl: HTMLDivElement, anotherEls: HTMLDivElement[]): void {
+    const [checkBoolean, checkEls]: [boolean, HTMLDivElement[]] = new HasClassListActive(anotherEls).checkClassList();
+    if (!checkBoolean) {
+      defaultEl.classList.add('active');
+    } else {
+      checkEls[0].classList.remove('active');
+      defaultEl.classList.add('active');
     }
-  });
+  }
+
+  main(): void {
+    const [mondayItemEl, tuesdayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl] = this.dayItems;
+    this.plusEl.addEventListener('click', event => {
+      if (event.target === mondayItemEl) {
+        this.checkEls(mondayItemEl, [tuesdayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl]);
+      } else if (event.target === tuesdayItemEl) {
+        this.checkEls(tuesdayItemEl, [mondayItemEl, wednesdayItemEl, thursdayItemEl, fridayItemEl]);
+      } else if (event.target === wednesdayItemEl) {
+        this.checkEls(wednesdayItemEl, [mondayItemEl, tuesdayItemEl, thursdayItemEl, fridayItemEl]);
+      } else if (event.target === thursdayItemEl) {
+        this.checkEls(thursdayItemEl, [mondayItemEl, tuesdayItemEl, wednesdayItemEl, fridayItemEl]);
+      } else if (event.target === fridayItemEl) {
+        this.checkEls(fridayItemEl, [mondayItemEl, tuesdayItemEl, thursdayItemEl, wednesdayItemEl]);
+      }
+    });
+  }
 }

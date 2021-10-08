@@ -4,6 +4,6 @@ export { default as OnClickCancelBtn } from './onClick-cancel-btn';
 export { default as onClickDeleteBtn } from './onClick-delete-btn';
 export { default as onClickEditIcon } from './onClick-edit-icon';
 export { default as OnClickImportantEls } from './onClick-important-els';
-export { default as onClickDaysEls } from './onClick-days-els';
+export { default as OnClickDaysEls } from './onClick-days-els';
 export { default as OnClickPlusBtn } from './onClick-plus-btn';
 export { default as OnClickCompletionEl } from './onClick-completion-el';

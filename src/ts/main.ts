@@ -4,7 +4,7 @@ import {
   OnClickCancelBtn,
   OnClickCheckIcon,
   OnClickCompletionEl,
-  onClickDaysEls,
+  OnClickDaysEls,
   onClickDeleteBtn,
   onClickEditBtn,
   onClickEditIcon,
@@ -29,7 +29,8 @@ function main(): void {
 
   if (plusEl) {
     new OnClickCancelBtn(plusEl).main();
-    onClickDaysEls(plusEl);
+    new OnClickDaysEls(plusEl).main();
+    // onClickDaysEls(plusEl);
     new OnClickImportantEls(plusEl).main();
     new OnClickCompletionEl(plusEl).main();
     onClickEditBtn(plusEl);

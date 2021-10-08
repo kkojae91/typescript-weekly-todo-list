@@ -1,6 +1,7 @@
 import SetTodoCount from '../set-todo-count';
 import Initialize from '../initialize/initialize';
 import { MakeWeeklyItem, MakeWeeklyIteminnerHTML } from '../template/makeTemplate';
+import dragAndDrop from '../drag-and-drop';
 
 interface ItodoList {
   randomId: number;
@@ -102,5 +103,6 @@ export default function onClickEditBtn(plusEl: Element): void {
         currentPlusTimeEl.value = '';
       }
     }
+    dragAndDrop();
   });
 }
