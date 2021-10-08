@@ -1,55 +1,84 @@
 import SetTodoCount from '../set-todo-count';
+import { ITodoList, IOnClickMain } from '../types/types';
 
-interface ItodoList {
-  randomId: number;
-  day: string;
-  template: string;
-  isActive: boolean;
-}
+export default class OnClickCheckIcon implements IOnClickMain {
+  template: string | undefined = '';
+  todoListWithString: string | null = localStorage.getItem('todo-list');
+  todoList: ITodoList[] | null = null;
+  constructor(private weeklyEl: HTMLTableSectionElement) {}
 
-export default function onClickCheckIcon(weeklyEl: HTMLTableSectionElement): void {
-  weeklyEl.addEventListener('click', event => {
-    const checkIconEls: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.check-icon');
+  private removeClassListActive(
+    currentWeeklyItemEl: HTMLDivElement,
+    editIconEl: HTMLDivElement,
+    currentId: string,
+  ): void {
+    currentWeeklyItemEl.classList.remove('active');
+    editIconEl.classList.remove('active');
+    this.template = currentWeeklyItemEl?.innerHTML;
+    this.todoList?.forEach(todo => {
+      if (String(todo.randomId) === currentId && this.template) {
+        todo.template = this.template;
+        todo.isActive = false;
+      }
+    });
+  }
+
+  private addClassListActive(currentWeeklyItemEl: HTMLDivElement, editIconEl: HTMLDivElement, currentId: string): void {
+    currentWeeklyItemEl.classList.add('active');
+    editIconEl.classList.add('active');
+    this.template = currentWeeklyItemEl?.innerHTML;
+    this.todoList?.forEach(todo => {
+      if (String(todo.randomId) === currentId && this.template) {
+        todo.template = this.template;
+        todo.isActive = true;
+      }
+    });
+  }
+
+  private checkClassListContainsActive(
+    currentWeeklyItemEl: HTMLDivElement,
+    editIconEl: HTMLDivElement,
+    currentId: string,
+  ): void {
+    if (currentWeeklyItemEl.classList.contains('active')) {
+      this.removeClassListActive(currentWeeklyItemEl, editIconEl, currentId);
+    } else {
+      this.addClassListActive(currentWeeklyItemEl, editIconEl, currentId);
+    }
+  }
+
+  private jsonParse(): void {
+    if (this.todoListWithString) {
+      this.todoList = JSON.parse(this.todoListWithString);
+    }
+  }
+
+  private getCurrentWeeklyItemElAndEditIconEl(
+    checkIconEl: HTMLDivElement,
+  ): [HTMLDivElement | null, HTMLDivElement | null, string | undefined] {
+    const currentId = checkIconEl.dataset.checkid;
+    const currentWeeklyItemEl: HTMLDivElement | null = document.querySelector<HTMLDivElement>(
+      `.weekly-item[data-itemid="${currentId}"]`,
+    );
+    const editIconEl: HTMLDivElement | null = document.querySelector<HTMLDivElement>(
+      `.edit-icon[data-editid="${currentId}"]`,
+    );
+
+    return [currentWeeklyItemEl, editIconEl, currentId];
+  }
+
+  private checkIconElsClickEvent(checkIconEls: NodeListOf<HTMLDivElement>, event: MouseEvent): void {
     checkIconEls.forEach(checkIconEl => {
       if (event.target === checkIconEl) {
-        const currentId = checkIconEl.dataset.checkid;
-        const currentWeeklyItemEl: HTMLDivElement | null = document.querySelector<HTMLDivElement>(
-          `.weekly-item[data-itemid="${currentId}"]`,
-        );
-        const editIconEl: HTMLDivElement | null = document.querySelector<HTMLDivElement>(
-          `.edit-icon[data-editid="${currentId}"]`,
-        );
-        let template: string | undefined = '';
+        const [currentWeeklyItemEl, editIconEl, currentId] = this.getCurrentWeeklyItemElAndEditIconEl(checkIconEl);
 
-        const todoListWithString: string | null = localStorage.getItem('todo-list');
-        let todoList: ItodoList[] | null = null;
-        if (todoListWithString) {
-          todoList = JSON.parse(todoListWithString);
+        this.jsonParse();
+
+        if (currentWeeklyItemEl && editIconEl && currentId) {
+          this.checkClassListContainsActive(currentWeeklyItemEl, editIconEl, currentId);
         }
 
-        if (currentWeeklyItemEl?.classList.contains('active')) {
-          currentWeeklyItemEl.classList.remove('active');
-          editIconEl?.classList.remove('active');
-          template = currentWeeklyItemEl?.innerHTML;
-          todoList?.forEach(todo => {
-            if (String(todo.randomId) === currentId && template) {
-              todo.template = template;
-              todo.isActive = false;
-            }
-          });
-        } else {
-          currentWeeklyItemEl?.classList.add('active');
-          editIconEl?.classList.add('active');
-          template = currentWeeklyItemEl?.innerHTML;
-          todoList?.forEach(todo => {
-            if (String(todo.randomId) === currentId && template) {
-              todo.template = template;
-              todo.isActive = true;
-            }
-          });
-        }
-
-        localStorage.setItem('todo-list', JSON.stringify(todoList));
+        localStorage.setItem('todo-list', JSON.stringify(this.todoList));
 
         const currentDay: string | null | undefined =
           currentWeeklyItemEl?.parentElement?.previousElementSibling?.firstElementChild?.firstElementChild?.textContent;
@@ -57,5 +86,12 @@ export default function onClickCheckIcon(weeklyEl: HTMLTableSectionElement): voi
         currentDay && new SetTodoCount().countTodoList();
       }
     });
-  });
+  }
+
+  public main(): void {
+    this.weeklyEl.addEventListener('click', event => {
+      const checkIconEls: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.check-icon');
+      this.checkIconElsClickEvent(checkIconEls, event);
+    });
+  }
 }

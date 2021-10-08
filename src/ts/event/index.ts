@@ -1,4 +1,4 @@
-export { default as onClickCheckIcon } from './onClick-check-icon';
+export { default as OnClickCheckIcon } from './onClick-check-icon';
 export { default as onClickEditBtn } from './onClick-edit-btn';
 export { default as OnClickCancelBtn } from './onClick-cancel-btn';
 export { default as onClickDeleteBtn } from './onClick-delete-btn';

@@ -1,4 +1,4 @@
-// previous-record 관련 type, make template 관련 type
+// previous-record, make template, onClick-check-icon 관련 type
 export interface ITodoList {
   randomId: number;
   day: string;
