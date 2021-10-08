@@ -8,7 +8,7 @@ import {
   onClickDeleteBtn,
   onClickEditBtn,
   onClickEditIcon,
-  onClickImportantEls,
+  OnClickImportantEls,
   OnClickPlusBtn,
 } from './event/index';
 
@@ -30,7 +30,7 @@ function main(): void {
   if (plusEl) {
     onClickCancelBtn(plusEl);
     onClickDaysEls(plusEl);
-    onClickImportantEls(plusEl);
+    new OnClickImportantEls(plusEl).main();
     onClickCompletionEl(plusEl);
     onClickEditBtn(plusEl);
   }

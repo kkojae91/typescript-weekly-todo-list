@@ -1,6 +1,6 @@
-import { IOnClickPlusBtn } from '../types/types';
+import { IOnClickMain } from '../types/types';
 
-export default class OnClickPlusBtn implements IOnClickPlusBtn {
+export default class OnClickPlusBtn implements IOnClickMain {
   private plusIcons: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.add-icon');
   private dayItems: NodeListOf<HTMLDivElement> = document.querySelectorAll<HTMLDivElement>('.plus-day-item');
   private completionBtn: HTMLDivElement | null = document.querySelector('.btn__completion');
